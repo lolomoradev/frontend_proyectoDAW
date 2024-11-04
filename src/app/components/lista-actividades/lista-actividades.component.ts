@@ -15,7 +15,29 @@ import { CommonModule } from '@angular/common';
 export class ListaActividadesComponent implements OnInit {
   actividades: Actividad[] = [];
   actividadActual: Actividad = this.crearActividadInicial();
+
+  nuevaActividad: Actividad = this.crearActividadInicial(); // Agrega esto
   editando: boolean = false;
+
+  tiposActividad = [
+    'Escalada',
+    'Barranquismo',
+    'Senderismo',
+    'Alpinismo',
+    'Kayak',
+    'Esqui',
+    'Snowboard',
+    'Surf',
+    'Rafting',
+    'BTT',
+    'Paracaidismo',
+    'Parapente'
+  ];
+
+  dificultades = ['Muy Fácil', 'Fácil', 'Intermedio', 'Difícil', 'Muy Difícil'];
+
+
+
 
   constructor(private actividadService: ActividadService) {}
 

@@ -29,6 +29,13 @@ export class RegistroComponent {
 
   constructor(private authService: LoginYRegistroService, private router: Router) {}
 
+
+  idiomasDisponibles = [
+    'Espanol', 'Ingles', 'Frances', 'Aleman', 'Italiano', 'Portugues', 'Chino', 
+    'Ruso', 'Japones', 'Danes', 'Sueco', 'Ucraniano', 'Otro'
+  ];
+
+
   register() {
     this.authService.register(this.usuario).subscribe({
       next: () => {

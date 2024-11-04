@@ -1,0 +1,86 @@
+/* Estilo general para el contenedor del formulario */
+div {
+    max-width: 500px; /* Ancho máximo del formulario más pequeño */
+    margin: 20px auto; /* Centra el formulario horizontalmente */
+    padding: 15px; /* Espaciado interno más pequeño */
+    border: 1px solid #ccc; /* Borde del formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Color de fondo */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Títulos del formulario */
+h2 {
+    text-align: center; /* Centrar el título */
+    color: #333; /* Color del texto */
+    font-size: 1.5em; /* Tamaño de fuente del título */
+}
+
+/* Estilo para los elementos del formulario */
+label {
+    display: block; /* Hace que cada etiqueta esté en su propia línea */
+    margin: 8px 0 3px; /* Espaciado vertical reducido */
+    font-weight: bold; /* Negrita para las etiquetas */
+    font-size: 0.9em; /* Tamaño de fuente más pequeño */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%; /* Ancho completo del campo */
+    padding: 8px; /* Espaciado interno más pequeño */
+    margin-bottom: 10px; /* Espacio debajo del campo */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+/* Cambia el borde de los campos al enfocarse */
+input:focus {
+    border-color: #007bff; /* Color del borde en foco */
+    outline: none; /* Sin contorno adicional */
+}
+
+/* Estilo para los botones */
+button {
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 8px 12px; /* Espaciado interno más pequeño */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    margin: 5px; /* Espaciado entre botones */
+}
+
+/* Cambia el color del botón al pasar el ratón por encima */
+button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el ratón */
+}
+
+/* Estilo para la lista de actividades */
+ul {
+    list-style-type: none; /* Sin viñetas */
+    padding: 0; /* Sin espaciado interno */
+}
+
+li {
+    padding: 8px; /* Espaciado interno reducido */
+    margin: 5px 0; /* Espaciado entre elementos de la lista */
+    border: 1px solid #ccc; /* Borde de cada actividad */
+    border-radius: 4px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco */
+    display: flex; /* Usar flex para alinear elementos */
+    justify-content: space-between; /* Espacio entre elementos */
+}
+
+/* Botones dentro de la lista */
+li button {
+    background-color: #dc3545; /* Color de fondo del botón de eliminar */
+    font-size: 12px; /* Tamaño de fuente más pequeño para los botones */
+}
+
+/* Cambia el color del botón de eliminar al pasar el ratón por encima */
+li button:hover {
+    background-color: #c82333; /* Color más oscuro al pasar el ratón */
+}
