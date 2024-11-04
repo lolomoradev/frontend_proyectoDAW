@@ -1,0 +1,90 @@
+/* Estilos generales del cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Color de fondo general */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Contenedor principal del formulario de login */
+  form {
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: 100px auto; /* Centra el formulario vertical y horizontalmente */
+    padding: 20px; /* Espacio interno del formulario */
+    background: white; /* Fondo blanco del formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+  }
+  
+  /* Títulos del formulario */
+  form h2 {
+    text-align: center; /* Centrar el título */
+    margin-bottom: 20px; /* Espacio inferior */
+    color: #333; /* Color del texto */
+  }
+  
+  /* Estilos de los campos de entrada */
+  form div {
+    margin-bottom: 15px; /* Espacio entre los campos */
+  }
+  
+  /* Estilos de las etiquetas */
+  label {
+    display: block; /* Mostrar etiquetas como bloques */
+    margin-bottom: 5px; /* Espacio inferior */
+    font-weight: bold; /* Negrita */
+    color: #555; /* Color del texto */
+  }
+  
+  /* Estilos de los inputs y textarea */
+  input[type="text"],
+  input[type="password"] {
+    width: 100%; /* Ancho completo del campo */
+    padding: 10px; /* Espacio interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: border 0.3s; /* Transición suave al enfocar */
+  }
+  
+  /* Estilo para el enfoque en los inputs */
+  input:focus {
+    border-color: #007bff; /* Color azul al enfocar */
+    outline: none; /* Sin contorno */
+  }
+  
+  /* Botón de envío */
+  button[type="submit"] {
+    width: 100%; /* Ancho completo del botón */
+    padding: 10px; /* Espacio interno */
+    background-color: #007bff; /* Color de fondo azul */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambiar cursor a puntero */
+    transition: background-color 0.3s; /* Transición suave al pasar el mouse */
+  }
+  
+  /* Estilo para el botón al pasar el mouse */
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+  }
+  
+  /* Estilo para mensajes de error */
+  .error-message {
+    color: red; /* Color rojo para mensajes de error */
+    text-align: center; /* Centrar el mensaje */
+    margin-top: 10px; /* Espacio superior */
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    form {
+      padding: 15px; /* Menor espacio interno en pantallas pequeñas */
+    }
+  
+    button[type="submit"] {
+      padding: 8px; /* Menor espacio interno en el botón */
+    }
+  }
+  

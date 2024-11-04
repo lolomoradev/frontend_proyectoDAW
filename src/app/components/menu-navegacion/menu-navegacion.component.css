@@ -1,0 +1,52 @@
+/* Reset de margenes y padding para evitar espacios indeseados */
+* {
+  margin: 0; /* Eliminar márgenes de todos los elementos */
+  padding: 0; /* Eliminar padding de todos los elementos */
+  box-sizing: border-box; /* Incluir padding y borde en el tamaño total */
+}
+
+/* Estilos generales del menú de navegacion */
+nav {
+  background-color: #000; /* Color de fondo negro */
+  height: 60px; /* Altura del menú */
+}
+
+/* Lista de navegacion */
+nav ul {
+  list-style-type: none; /* Eliminar viñetas */
+  display: flex; /* Usar flexbox para el diseño horizontal */
+  height: 100%; /* Asegurar que la lista ocupe toda la altura del nav */
+  align-items: center; /* Centrar elementos verticalmente */
+}
+
+/* Elementos de la lista */
+nav li {
+  margin: 0 20px; /* Espaciado horizontal entre elementos */
+}
+
+/* Enlaces de navegacion */
+nav a {
+  text-decoration: none; /* Sin subrayado */
+  color: white; /* Color del texto */
+  font-weight: bold; /* Texto en negrita */
+  padding: 15px; /* Espaciado interno para los enlaces */
+  transition: background-color 0.3s; /* Efecto de transición */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Efecto hover en los enlaces */
+nav a:hover {
+  background-color: #333; /* Color gris oscuro al pasar el mouse */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    align-items: center; /* Centrar elementos */
+  }
+
+  nav li {
+    margin: 5px 0; /* Espaciado vertical entre elementos */
+  }
+}

@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil-ofertante',
   standalone: true,
-  imports: [],
+  imports: [FormsModule], // Importa FormsModule aquí
   templateUrl: './perfil-ofertante.component.html',
-  styleUrl: './perfil-ofertante.component.css'
+  styleUrls: ['./perfil-ofertante.component.css']
 })
 export class PerfilOfertanteComponent {
+  oferta = {
+    experiencia: '',
+    certificacion: '',
+    valoracion: null,
+  };
 
+  // Aquí puedes agregar métodos para manejar la lógica específica del ofertante
 }

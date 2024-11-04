@@ -1,1 +1,67 @@
-<p>registro works!</p>
+<form (ngSubmit)="register()">
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required />
+  </div>
+  <div>
+    <label for="apellido1">Primer Apellido:</label>
+    <input id="apellido1" [(ngModel)]="usuario.apellido1" name="apellido1" required />
+  </div>
+  <div>
+    <label for="apellido2">Segundo Apellido:</label>
+    <input id="apellido2" [(ngModel)]="usuario.apellido2" name="apellido2" />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" [(ngModel)]="usuario.email" name="email" required />
+  </div>
+  <div>
+    <label for="nombreUsuario">Nombre de Usuario:</label>
+    <input id="nombreUsuario" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required />
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" type="password" [(ngModel)]="usuario.password" name="password" required />
+  </div>
+  <div>
+    <label for="biografia">Biografía:</label>
+    <textarea id="biografia" [(ngModel)]="usuario.biografia" name="biografia"></textarea>
+  </div>
+  <div>
+    <label for="idiomasHablados">Idiomas Hablados:</label>
+    <input id="idiomasHablados" [(ngModel)]="usuario.idiomasHablados" name="idiomasHablados" />
+  </div>
+  <div>
+    <label for="telefono">Teléfono:</label>
+    <input id="telefono" [(ngModel)]="usuario.telefono" name="telefono" />
+  </div>
+  <div>
+    <label for="rol">Tipo de perfil:</label>
+    <select id="rol" [(ngModel)]="usuario.rol" name="rol" (change)="onRoleChange()" required>
+      <option value="">Seleccione...</option>
+      <option value="ofertante">Ofertante</option>
+      <option value="demandante">Demandante</option>
+      <option value="ambos">Ambos</option>
+    </select>
+  </div>
+
+    <!-- Muestra los componentes segun el tipo de perfil seleccionado -->
+
+
+  <div *ngIf="usuario.rol === 'ofertante'">
+    <app-perfil-ofertante></app-perfil-ofertante>
+  </div>
+
+  <div *ngIf="usuario.rol === 'demandante'">
+    <app-perfil-demandante></app-perfil-demandante>
+  </div>
+
+  <div *ngIf="usuario.rol === 'ambos'">
+    <app-perfil-ofertante></app-perfil-ofertante>
+    <app-perfil-demandante></app-perfil-demandante>
+  </div>
+
+  <button type="submit">Registrarse</button>
+
+
+</form>

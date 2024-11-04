@@ -1,1 +1,45 @@
-<p>lista-actividades works!</p>
+<!-- src/app/components/lista-actividades/lista-actividades.component.html -->
+<div>
+    <h2>Lista de Actividades</h2>
+    
+    <form (ngSubmit)="editando ? actualizarActividad() : agregarActividad()">
+      <div *ngFor="let field of [
+        { label: 'Título', model: 'titulo', required: true },
+        { label: 'Descripción', model: 'descripcion' },
+        { label: 'Precio', model: 'precio', type: 'number', required: true },
+        { label: 'Tipo de Pago', model: 'tipoPago' },
+        { label: 'Tipo de Actividad', model: 'tipoActividad' },
+        { label: 'Edad Requerida', model: 'edadRequerida', type: 'number' },
+        { label: 'Estado de Actividad', model: 'estadoActividad' },
+        { label: 'Punto de Encuentro', model: 'puntoEncuentro' },
+        { label: 'Mínimo Personas', model: 'minimoPersonas', type: 'number', required: true },
+        { label: 'Máximo Personas', model: 'maximoPersonas', type: 'number', required: true },
+        { label: 'Fecha Publicación', model: 'fechaPublicacion', type: 'date' },
+        { label: 'Fecha Límite de Inscripción', model: 'fechaLimiteInscripcion', type: 'date' },
+        { label: 'Fecha de Realización', model: 'fechaRealizacion', type: 'date' },
+        { label: 'Duración', model: 'duracion' },
+        { label: 'Ubicación', model: 'ubicacion' },
+        { label: 'Dificultad', model: 'dificultad' },
+        { label: 'Política de Cancelación', model: 'politicaCancelacion' },
+        { label: 'Material Necesario', model: 'materialNecesario' },
+        { label: 'ID Ofertante', model: 'idOfertante', type: 'number', required: true }
+      ]">
+        <label [for]="field.model">{{ field.label }}:</label>
+        <input [id]="field.model" [type]="field.type || 'text'" 
+               [(ngModel)]="actividadActual[field.model]" 
+               [required]="field.required" name="{{ field.model }}" />
+      </div>
+  
+      <button type="submit">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
+      <button type="button" (click)="resetFormulario()" *ngIf="editando">Cancelar</button>
+    </form>
+  
+    <ul>
+      <li *ngFor="let actividad of actividades">
+        {{ actividad.titulo }} - {{ actividad.descripcion }} - {{ actividad.precio }} - {{ actividad.fechaPublicacion | date }}
+        <button (click)="editarActividad(actividad)">Editar</button>
+        <button (click)="eliminarActividad(actividad.idActividad)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+  
