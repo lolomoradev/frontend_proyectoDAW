@@ -1,1 +1,43 @@
-<p>lista-usuarios works!</p>
+<div class="container-listaActividades">
+    <h2>Lista de Usuarios</h2>
+  
+    <!-- Tabla para mostrar las actividades -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Nombre de usuario</th>
+          <th>Password</th>
+          <th>Biografía</th>
+          <th>Fecha de Registro</th>
+          <th>Idiomas hablados</th>
+          <th>Teléfono</th>
+          <th>Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.apellido1 }}</td>
+          <td>{{ usuario.apellido2}}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.nombreUsuario }}</td>
+          <td>{{ usuario.password }}</td>
+          <td>{{ usuario.biografia }}</td>
+          <td>{{ usuario.fechaRegistro }}</td>
+          <td>{{ usuario.idiomasHablados }}</td>
+          <td>{{ usuario.telefono }}</td>
+          <td>{{ usuario.rol }}</td>
+
+          <td>
+            <!-- Botones para editar y eliminar -->
+            <button (click)="editarUsuario(usuario)" class="btn btn-primary btn-sm">Editar</button>
+            <button (click)="eliminarUsuario(usuario.idUsuario)" class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

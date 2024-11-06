@@ -9,8 +9,8 @@ import { importProvidersFrom } from '@angular/core';
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
-      HttpClientModule,  // Asegúrate de incluir HttpClientModule aquí
-      RouterModule.forRoot(routes)  // Rutas de tu aplicación
+      RouterModule.forRoot(routes), // Rutas de tu aplicación
+      HttpClientModule // Asegúrate de agregar HttpClientModule aquí
     )
   ]
 }).catch(err => console.error(err));

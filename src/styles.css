@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*CSS para los colores de los container de Login */
+
+.background-black {
+    background-color: #000; /* Negro */
+    color: #fff; /* Cambia el color de texto si es necesario */
+  }
+  
+  .background-gray {
+    background-color: #808080; /* Gris */
+    color: #fff; /* Cambia el color de texto si es necesario */
+  }
+  
+  .background-green {
+    background-color: #008000; /* Verde */
+    color: #fff; /* Cambia el color de texto si es necesario */
+  }
+  
+  .container {
+    padding: 20px;
+    /* Agrega otros estilos comunes a todos los contenedores */
+  }
+  

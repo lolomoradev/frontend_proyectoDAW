@@ -1,1 +1,16 @@
 <h1>Perfil del Usuario</h1>
+
+<div class="perfilUsuario-container">
+    <!-- Vista para el perfil de ofertante -->
+    <app-perfil-ofertante *ngIf="userRole === 'Ofertante'"></app-perfil-ofertante>
+  
+    <!-- Vista para el perfil de demandante -->
+    <app-perfil-demandante *ngIf="userRole === 'Demandante'"></app-perfil-demandante>
+  
+    <!-- Vista para el perfil de administrador -->
+    <app-perfil-admin *ngIf="userRole === 'Admin'"></app-perfil-admin>
+  
+    <!-- Vista para usuarios sin rol asignado -->
+    <p *ngIf="!userRole">Por favor, inicia sesión para ver el contenido adecuado a tu perfil.</p>
+  </div>
+  

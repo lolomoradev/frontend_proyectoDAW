@@ -1,1 +1,17 @@
-<p>home works!</p>
+
+Home
+
+<div class="home-container">
+    <!-- Vista para el perfil de ofertante -->
+    <app-home-ofertante *ngIf="userRole === 'Ofertante'"></app-home-ofertante>
+  
+    <!-- Vista para el perfil de demandante -->
+    <app-home-demandante *ngIf="userRole === 'Demandante'"></app-home-demandante>
+  
+    <!-- Vista para el perfil de administrador -->
+    <app-home-admin *ngIf="userRole === 'Admin'"></app-home-admin>
+  
+    <!-- Vista para usuarios sin rol asignado -->
+    <p *ngIf="!userRole">Por favor, inicia sesión para ver el contenido adecuado a tu perfil.</p>
+  </div>
+  

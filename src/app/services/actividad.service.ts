@@ -2,33 +2,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Actividad } from '../models/actividadModel'; // Asegúrate de ajustar la ruta según tu estructura
+import { ActividadDTO } from '../models/actividadDTO'; // Importa el DTO de Actividad
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActividadService {
-  private apiUrl = 'http://localhost:3000/actividades'; // Cambia esto a la URL de tu API
+
+  private apiUrl = 'http://localhost:8080/api'; // URL base para las operaciones de actividad
 
   constructor(private http: HttpClient) {}
 
-  getActividades(): Observable<Actividad[]> {
-    return this.http.get<Actividad[]>(this.apiUrl);
+  // Obtener todas las actividades (usando ActividadDTO)
+  getActividades(): Observable<ActividadDTO[]> {
+    return this.http.get<ActividadDTO[]>(`${this.apiUrl}/actividades`);  // Ruta que ya tienes en el backend
   }
 
-  getActividadById(id: number): Observable<Actividad> {
-    return this.http.get<Actividad>(`${this.apiUrl}/${id}`);
+  // Obtener una actividad por ID
+  getActividadById(id: number): Observable<ActividadDTO> {
+    return this.http.get<ActividadDTO>(`${this.apiUrl}/actividades/${id}`);  // Ruta para obtener una actividad por ID
   }
 
-  createActividad(actividad: Actividad): Observable<Actividad> {
-    return this.http.post<Actividad>(this.apiUrl, actividad);
+  // Agregar una nueva actividad
+  agregarActividad(actividad: ActividadDTO): Observable<ActividadDTO> {
+    return this.http.post<ActividadDTO>(`${this.apiUrl}/agregarActividad`, actividad);  // Ruta para agregar una actividad
   }
 
-  updateActividad(actividad: Actividad): Observable<Actividad> {
-    return this.http.put<Actividad>(`${this.apiUrl}/${actividad.idActividad}`, actividad);
+  // Actualizar una actividad
+  actualizarActividad(id: number, actividad: ActividadDTO): Observable<ActividadDTO> {
+    return this.http.put<ActividadDTO>(`${this.apiUrl}/actualizarActividad/${id}`, actividad);
   }
 
-  deleteActividad(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // Borrar una actividad por ID
+  borrarActividad(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/borrarActividad/${id}`);  // Ruta para borrar una actividad
   }
 }

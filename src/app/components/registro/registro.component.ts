@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-import { LoginYRegistroService } from '../../services/login-yregistro.service';
+import { RegistroService } from '../../services/registro.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { PerfilOfertanteComponent } from '../perfil-ofertante/perfil-ofertante.component'; // Ajusta la ruta según tu estructura de carpetas
 import { PerfilDemandanteComponent } from '../perfil-demandante/perfil-demandante.component'; // Ajusta la ruta según tu estructura de carpetas
+import { HttpClientModule } from '@angular/common/http';
+import { UsuarioDTO } from '../../models/usuarioDTO';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [FormsModule, CommonModule, PerfilDemandanteComponent, PerfilOfertanteComponent],
+  imports: [FormsModule, CommonModule, PerfilDemandanteComponent, PerfilOfertanteComponent,HttpClientModule],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
-  usuario = {
+  usuario: UsuarioDTO = {
     nombre: '',
     apellido1: '',
     apellido2: '',
@@ -24,10 +26,12 @@ export class RegistroComponent {
     biografia: '',
     idiomasHablados: '',
     telefono: '',
-    rol: ''
+    rol: '',
+    idUsuario: 0,
+    fechaRegistro: new Date()
   };
 
-  constructor(private authService: LoginYRegistroService, private router: Router) {}
+  constructor(private registroService: RegistroService, private router: Router) {}
 
 
   idiomasDisponibles = [
@@ -37,7 +41,7 @@ export class RegistroComponent {
 
 
   register() {
-    this.authService.register(this.usuario).subscribe({
+    this.registroService.register(this.usuario).subscribe({
       next: () => {
         this.router.navigate(['/login']);
       },

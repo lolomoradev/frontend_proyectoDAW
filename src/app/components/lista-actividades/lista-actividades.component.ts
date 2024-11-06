@@ -4,6 +4,8 @@ import { ActividadService } from '../../services/actividad.service';
 import { Actividad } from '../../models/actividadModel';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ActividadDTO } from '../../models/actividadDTO';  // Asegúrate de que la ruta sea correcta
+
 
 @Component({
   selector: 'app-lista-actividades',
@@ -13,10 +15,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./lista-actividades.component.css']
 })
 export class ListaActividadesComponent implements OnInit {
-  actividades: Actividad[] = [];
-  actividadActual: Actividad = this.crearActividadInicial();
+  actividades: ActividadDTO[] = [];
+  actividadActual: ActividadDTO = this.crearActividadInicial();
 
-  nuevaActividad: Actividad = this.crearActividadInicial(); // Agrega esto
+  nuevaActividad: ActividadDTO = this.crearActividadInicial(); // Agrega esto
   editando: boolean = false;
 
   tiposActividad = [
@@ -52,29 +54,30 @@ export class ListaActividadesComponent implements OnInit {
   }
 
   agregarActividad() {
-    this.actividadService.createActividad(this.actividadActual).subscribe(actividad => {
+    this.actividadService.agregarActividad(this.actividadActual).subscribe(actividad => {
       this.actividades.push(actividad);
       this.resetFormulario();
     });
   }
 
-  editarActividad(actividad: Actividad) {
+  editarActividad(actividadDTO: ActividadDTO) {
     this.editando = true;
-    this.actividadActual = { ...actividad }; // Copia la actividad a editar
+    this.actividadActual = { ...actividadDTO }; // Copia la actividad a editar
   }
 
   actualizarActividad() {
-    this.actividadService.updateActividad(this.actividadActual).subscribe(() => {
-      const index = this.actividades.findIndex(a => a.idActividad === this.actividadActual.idActividad);
+    const id = this.actividadActual.idActividad; // Extraer el ID de la actividad actual
+    this.actividadService.actualizarActividad(id, this.actividadActual).subscribe(() => {
+      const index = this.actividades.findIndex(a => a.idActividad === id);
       if (index !== -1) {
         this.actividades[index] = this.actividadActual;
       }
       this.resetFormulario();
     });
   }
-
+  
   eliminarActividad(id: number) {
-    this.actividadService.deleteActividad(id).subscribe(() => {
+    this.actividadService.borrarActividad(id).subscribe(() => {
       this.actividades = this.actividades.filter(a => a.idActividad !== id);
     });
   }
@@ -84,7 +87,7 @@ export class ListaActividadesComponent implements OnInit {
     this.editando = false;
   }
 
-  crearActividadInicial(): Actividad {
+  crearActividadInicial(): ActividadDTO {
     return {
       idActividad: 0,
       titulo: '',
@@ -92,14 +95,14 @@ export class ListaActividadesComponent implements OnInit {
       precio: 0,
       tipoPago: '',
       tipoActividad: '',
-      edadRequerida: undefined,
+      edadRequerida: 0,
       estadoActividad: '',
       puntoEncuentro: '',
       minimoPersonas: 0,
       maximoPersonas: 0,
-      fechaPublicacion: undefined,
-      fechaLimiteInscripcion: undefined,
-      fechaRealizacion: undefined,
+      fechaPublicacion: new Date(),
+      fechaLimiteInscripcion: new Date(),
+      fechaRealizacion: new Date(),
       duracion: '',
       ubicacion: '',
       dificultad: '',

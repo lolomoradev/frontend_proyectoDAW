@@ -1,5 +1,52 @@
-<div>
+<div class="container-listaActividades">
     <h2>Lista de Actividades</h2>
+  
+    <!-- Tabla para mostrar las actividades -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Tipo de Pago</th>
+          <th>Tipo de Actividad</th>
+          <th>Edad Requerida</th>
+          <th>Estado</th>
+          <th>Duración</th>
+          <th>Ubicación</th>
+          <th>Dificultad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let actividad of actividades">
+          <td>{{ actividad.titulo }}</td>
+          <td>{{ actividad.descripcion }}</td>
+          <td>{{ actividad.precio | currency }}</td>
+          <td>{{ actividad.tipoPago }}</td>
+          <td>{{ actividad.tipoActividad }}</td>
+          <td>{{ actividad.edadRequerida }}</td>
+          <td>{{ actividad.estadoActividad }}</td>
+          <td>{{ actividad.duracion }}</td>
+          <td>{{ actividad.ubicacion }}</td>
+          <td>{{ actividad.dificultad }}</td>
+          <td>
+            <!-- Botones para editar y eliminar -->
+            <button (click)="editarActividad(actividad)" class="btn btn-primary btn-sm">Editar</button>
+            <button (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+
+
+<!--
+
+<div>
+    <h2>Agregar actividad</h2>
     
     <form (ngSubmit)="editando ? actualizarActividad() : agregarActividad()" #actividadForm="ngForm">
         <div class="form-group">
@@ -118,3 +165,4 @@
         </li>
     </ul>
 </div>
+-->
