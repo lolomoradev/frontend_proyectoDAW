@@ -1,70 +1,129 @@
-<form (ngSubmit)="register()">
-  <div>
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required />
-  </div>
-  <div>
-    <label for="apellido1">Primer Apellido:</label>
-    <input id="apellido1" [(ngModel)]="usuario.apellido1" name="apellido1" required />
-  </div>
-  <div>
-    <label for="apellido2">Segundo Apellido:</label>
-    <input id="apellido2" [(ngModel)]="usuario.apellido2" name="apellido2" />
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" type="email" [(ngModel)]="usuario.email" name="email" required />
-  </div>
-  <div>
-    <label for="nombreUsuario">Nombre de Usuario:</label>
-    <input id="nombreUsuario" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required />
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" type="password" [(ngModel)]="usuario.password" name="password" required />
-  </div>
-  <div>
-    <label for="biografia">Biografía:</label>
-    <textarea id="biografia" [(ngModel)]="usuario.biografia" name="biografia"></textarea>
-  </div>
+<div class="formulario-registro-container">
+  <h2 class="">Formulario de Registro</h2>
 
-  <div class="form-group">
-    <label for="idiomasHablados">Idiomas Hablados:</label>
-    <select id="idiomasHablados" [(ngModel)]="usuario.idiomasHablados" name="idiomasHablados" multiple>
-        <option *ngFor="let idioma of idiomasDisponibles" [value]="idioma">{{ idioma }}</option>
-    </select>
-</div>
-  <div>
-    <label for="telefono">Teléfono:</label>
-    <input id="telefono" [(ngModel)]="usuario.telefono" name="telefono" />
-  </div>
-  <div>
-    <label for="rol">Tipo de perfil:</label>
-    <select id="rol" [(ngModel)]="usuario.rol" name="rol" (change)="onRoleChange()" required>
-      <option value="">Seleccione...</option>
+  <form class="formulario-registro-formulario" (ngSubmit)="register()">
+    
+    <input
+      id="nombre"
+      placeholder="Nombre"
+      class="formulario-registro-input"
+      type="text"
+      [(ngModel)]="usuario.nombre"
+      name="nombre"
+      required
+    />
+
+    <input
+      id="apellido1"
+      placeholder="Primer Apellido"
+      class="formulario-registro-input"
+      type="text"
+      [(ngModel)]="usuario.apellido1"
+      name="apellido1"
+      required
+    />
+
+    <input
+      id="apellido2"
+      placeholder="Segundo Apellido"
+      class="formulario-registro-input"
+      type="text"
+      [(ngModel)]="usuario.apellido2"
+      name="apellido2"
+    />
+
+    <input
+      id="email"
+      placeholder="Email"
+      class="formulario-registro-input"
+      type="email"
+      [(ngModel)]="usuario.email"
+      name="email"
+      required
+    />
+
+    <input
+      id="username"
+      placeholder="Nombre de Usuario"
+      class="formulario-registro-input"
+      type="text"
+      [(ngModel)]="usuario.username"
+      name="username"
+      required
+    />
+
+    <input
+      id="password"
+      placeholder="Password"
+      class="formulario-registro-input"
+      type="password"
+      [(ngModel)]="usuario.password"
+      name="password"
+      required
+    />
+
+    <textarea
+      id="biografia"
+      placeholder="Biografía"
+      class="formulario-registro-input"
+      [(ngModel)]="usuario.biografia"
+      name="biografia"
+    ></textarea>
+
+    <select
+    id="idiomasHablados"
+    class="formulario-registro-input"
+    [(ngModel)]="idiomasSeleccionados"
+    name="idiomasHablados"
+    multiple
+    (change)="onIdiomasChange()"
+  >
+    <option *ngFor="let idioma of idiomasDisponibles" [value]="idioma">
+      {{ idioma }}
+    </option>
+  </select>
+
+    <input
+      id="telefono"
+      placeholder="Teléfono"
+      class="formulario-registro-input"
+      type="text"
+      [(ngModel)]="usuario.telefono"
+      name="telefono"
+    />
+
+    <select
+      id="rol"
+      class="formulario-registro-input"
+      [(ngModel)]="usuario.rol"
+      name="rol"
+      (change)="onRoleChange()"
+      required
+    >
+      <option value="">Seleccione tipo de perfil...</option>
       <option value="ofertante">Ofertante</option>
       <option value="demandante">Demandante</option>
       <option value="ambos">Ambos</option>
     </select>
-  </div>
 
-    <!-- Muestra los componentes segun el tipo de perfil seleccionado -->
+    <!-- Componentes según el tipo de perfil -->
+    <div *ngIf="usuario.rol === 'ofertante'">
+      <app-registro-ofertante></app-registro-ofertante>
+    </div>
+    <div *ngIf="usuario.rol === 'demandante'">
+      <app-registro-demandante></app-registro-demandante>
+    </div>
+    <div *ngIf="usuario.rol === 'ambos'">
+      <app-registro-ofertante></app-registro-ofertante>
+      <app-registro-demandante></app-registro-demandante>
+    </div>
 
+    <button
+      class="formulario-registro-boton"
+      type="submit"
+    >
+      Registrarse
+    </button>
+  </form>
 
-  <div *ngIf="usuario.rol === 'ofertante'">
-    <app-perfil-ofertante></app-perfil-ofertante>
-  </div>
-
-  <div *ngIf="usuario.rol === 'demandante'">
-    <app-perfil-demandante></app-perfil-demandante>
-  </div>
-
-  <div *ngIf="usuario.rol === 'ambos'">
-    <app-perfil-ofertante></app-perfil-ofertante>
-    <app-perfil-demandante></app-perfil-demandante>
-  </div>
-
-  <button type="submit">Registrarse</button>
-
-
-</form>
+</div>

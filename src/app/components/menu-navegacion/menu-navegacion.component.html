@@ -1,14 +1,24 @@
 <nav>
   <ul>
+    <!-- Ruta para Home, visible para todos -->
     <li><a routerLink="/home">Home</a></li>
+    
+    <!-- Ruta para Actividades, visible para todos -->
     <li><a routerLink="/actividades">Actividades</a></li>
+    
+    <!-- Ruta para Perfil, visible para todos los usuarios autenticados -->
     <li><a routerLink="/perfil">Perfil</a></li>
+    
+    <!-- Ruta para Registro, visible solo si el usuario NO está autenticado -->
     <li><a routerLink="/registro">Registro</a></li>
+    
+    <!-- Ruta para Login, visible solo si el usuario NO está autenticado -->
     <li><a routerLink="/login">Login</a></li>
+    
+    <!-- Ruta para Usuarios, visible solo para admins -->
     <li><a routerLink="/usuarios">Usuarios</a></li>
-    <!-- Solo visible para el rol Admin 
-    <li *ngIf="userRole === 'Admin'">
-      <a routerLink="/usuarios">Usuarios</a>
-    </li>-->
+    
+    <!-- Cerrar sesión, visible solo si el usuario está autenticado -->
+    <li><a href="#" (click)="logout()">Logout</a></li>
   </ul>
 </nav>

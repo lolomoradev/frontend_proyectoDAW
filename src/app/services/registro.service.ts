@@ -13,6 +13,7 @@ export class RegistroService {
   constructor(private http: HttpClient) {}
 
   register(usuario: UsuarioDTO): Observable<UsuarioDTO> {
+    console.log("Usuario a registrar", usuario);
     return this.http.post<UsuarioDTO>(this.apiUrl, usuario);
   }
 }

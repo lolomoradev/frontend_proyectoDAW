@@ -1,0 +1,14 @@
+<div class="registro-demandante-container">
+    <h3 class="registro-demandante-title">Información del Demandante</h3>
+    
+    <div>
+      <label for="telefonoEmergencia" class="registro-demandante-label">Teléfono de Emergencia:</label>
+      <input id="telefonoEmergencia" [(ngModel)]="demanda.telefonoEmergencia" name="telefonoEmergencia" class="registro-demandante-input" />
+    </div>
+    
+    <div>
+      <label for="edad" class="registro-demandante-label">Edad:</label>
+      <input id="edad" type="number" [(ngModel)]="demanda.edad" name="edad" min="1" class="registro-demandante-input" />
+    </div>
+  </div>
+  

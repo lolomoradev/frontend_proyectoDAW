@@ -5,7 +5,7 @@ export interface Usuario {
     apellido1: string;
     apellido2: string;
     email: string;
-    nombreUsuario: string;
+    username: string;
     password: string;
     biografia?: string;
     fechaRegistro: Date;

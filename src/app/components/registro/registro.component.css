@@ -1,103 +1,32 @@
-/* Estilos generales del cuerpo */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+/* Global styles or component-specific CSS */
+
+.formulario-registro-container{
+  width: 600px;
+  margin: 0 auto; /* Centra el formulario horizontalmente */
+
 }
 
-/* Contenedor principal del formulario */
-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-size: 14px; /* Tamaño de fuente específico para el formulario */
+.formulario-registro-input{
+  padding:10px;
+  margin: 8px;
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+
 }
 
-/* Títulos del formulario */
-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Estilos de los campos de entrada */
-form div {
-  margin-bottom: 20px; /* Aumentado para más espaciado */
-}
-
-/* Estilos de las etiquetas */
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-
-/* Estilos de los inputs y textarea */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-textarea,
-select {
-  width: 100%;
+.formulario-registro-boton{
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border 0.3s;
+  margin: 30px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  background-color: #4CAF50; /* Un color de fondo para el botón */
+  width: 40%;
+  margin: 0 auto;
 }
 
-/* Estilo para el enfoque en los inputs */
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #007bff; /* Color azul al enfocar */
-  outline: none; /* Sin contorno */
+.formulario-registro-boton:hover {
+  background-color: #45a049; /* Color al pasar el cursor sobre el botón */
 }
 
-/* Botón de envío */
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-/* Estilo para el botón al pasar el mouse */
-button[type="submit"]:hover {
-  background-color: #0056b3; /* Color más oscuro al pasar el mouse */
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  form {
-    padding: 15px;
-  }
-
-  button[type="submit"] {
-    padding: 8px;
-  }
-}
-
-/* Estilos para los componentes de perfil dentro del formulario */
-app-perfil-ofertante,
-app-perfil-demandante {
-  margin-top: 20px; /* Espacio superior entre el formulario y los componentes */
-  padding: 10px; /* Espacio interno de los componentes */
-}
-
-/* Estilos para mensajes de error */
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
+.formulario-registro-formulario{
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos dentro del formulario se apilen verticalmente */
 }

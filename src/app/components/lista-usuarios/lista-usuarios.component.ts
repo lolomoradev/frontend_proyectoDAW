@@ -79,7 +79,7 @@ export class ListaUsuariosComponent {
           apellido1: '',
           apellido2: '',
           email: '',
-          nombreUsuario: '',
+          username: '',
           password: '',
           biografia: '',
           fechaRegistro: new Date(),

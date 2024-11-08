@@ -6,11 +6,11 @@ export class UsuarioDTO {
     apellido1: string;
     apellido2: string;
     email: string;
-    nombreUsuario: string;
+    username: string;
     password: string;
     biografia?: string;
     fechaRegistro: Date;
-    idiomasHablados?: string;
+    idiomasHablados?:string;
     telefono?: string;
     rol: string;
   
@@ -21,7 +21,7 @@ export class UsuarioDTO {
       apellido1: string = '',
       apellido2: string = '',
       email: string = '',
-      nombreUsuario: string = '',
+      username: string = '',
       password: string = '',
       biografia?: string,
       fechaRegistro: Date = new Date(),
@@ -34,7 +34,7 @@ export class UsuarioDTO {
       this.apellido1 = apellido1;
       this.apellido2 = apellido2;
       this.email = email;
-      this.nombreUsuario = nombreUsuario;
+      this.username = username;
       this.password = password;
       this.biografia = biografia;
       this.fechaRegistro = fechaRegistro;

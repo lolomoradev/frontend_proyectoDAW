@@ -9,11 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./perfil-ofertante.component.css']
 })
 export class PerfilOfertanteComponent {
-  oferta = {
-    experiencia: '',
-    certificacion: '',
-    valoracion: null,
-  };
+
 
   // Aquí puedes agregar métodos para manejar la lógica específica del ofertante
 }

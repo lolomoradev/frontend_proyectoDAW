@@ -9,11 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./perfil-demandante.component.css']
 })
 export class PerfilDemandanteComponent {
-  demanda = {
-    telefonoEmergencia: '',
-    edad: null,
-    saldo: 0,
-  };
+
 
   // Aquí puedes agregar métodos para manejar la lógica específica del demandante
 }

@@ -1,0 +1,87 @@
+/* Estilos para el contenedor principal */
+.perfil-usuario-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el título */
+.perfil-usuario-container h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Estilo para la tarjeta del perfil */
+.perfil-usuario-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para la imagen del perfil */
+.perfil-usuario-imagen img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Estilo para la información del perfil */
+.perfil-usuario-info {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+/* Estilo para cada ítem de la información */
+.perfil-usuario-info-item {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.perfil-usuario-info-item strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Estilo para los botones de acción */
+.perfil-usuario-actions {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.perfil-usuario-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.perfil-usuario-btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.perfil-usuario-btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.perfil-usuario-btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.perfil-usuario-btn-secondary:hover {
+    background-color: #5a6268;
+}

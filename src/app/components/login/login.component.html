@@ -1,40 +1,56 @@
-<form class="login-container">
-    <div>
-      <label for="username">Usuario</label>
-      <input type="text" id="username"  name="username" required>
-    </div>
-    <div>
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Entrar</button>
-  
+<form class="login-container" (ngSubmit)="login()">
+  <div>
+    <label for="username">Usuario</label>
+    <input 
+      type="text" 
+      id="username" 
+      name="username" 
+      [(ngModel)]="username" 
+      required
+    >
+  </div>
+  <div>
+    <label for="password">Contraseña</label>
+    <input 
+      type="password" 
+      id="password" 
+      name="password" 
+      [(ngModel)]="password" 
+      required
+    >
+  </div>
+  <button type="submit">Entrar</button>
+</form>
 
-  </form>
-  
-  <div class="container background-black">
-    <app-info-section-login
-      imageSrc="assets/image1.jpg"
-      title="Disfruta la Naturaleza"
-      description="Explora nuestras actividades al aire libre en el medio natural."
-      [isImageRight]="false"
-    ></app-info-section-login>
-  </div>
-  
-  <div class="container background-gray">
-    <app-info-section-login
-      imageSrc="assets/image2.jpg"
-      title="Aventuras Inolvidables"
-      description="Reserva tu experiencia y vive la emoción del aire libre."
-      [isImageRight]="true"
-    ></app-info-section-login>
-  </div>
-  
-  <div class="container container background-green">
-    <app-info-section-login
-      imageSrc="assets/image3.jpg"
-      title="Conexión con la Naturaleza"
-      description="Participa en actividades que te conecten con el entorno."
-      [isImageRight]="false"
-    ></app-info-section-login>
-  </div>
+<!-- Mensaje de error en caso de que el login falle -->
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<!-- Secciones de información -->
+<div class="container background-black">
+  <app-info-section-login
+    imageSrc="assets/image1.jpg"
+    title="Disfruta la Naturaleza"
+    description="Explora nuestras actividades al aire libre en el medio natural."
+    [isImageRight]="false"
+  ></app-info-section-login>
+</div>
+
+<div class="container background-gray">
+  <app-info-section-login
+    imageSrc="assets/image2.jpg"
+    title="Aventuras Inolvidables"
+    description="Reserva tu experiencia y vive la emoción del aire libre."
+    [isImageRight]="true"
+  ></app-info-section-login>
+</div>
+
+<div class="container background-green">
+  <app-info-section-login
+    imageSrc="assets/image3.jpg"
+    title="Explora tus límites y ve más allá"
+    description="Participa en actividades que te conecten con el entorno."
+    [isImageRight]="false"
+  ></app-info-section-login>
+</div>
