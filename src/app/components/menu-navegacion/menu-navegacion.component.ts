@@ -1,34 +1,36 @@
+// src/app/components/menu-navegacion/menu-navegacion.component.ts
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router'; // Importa RouterModule
 
 @Component({
   selector: 'app-menu-navegacion',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './menu-navegacion.component.html',
   styleUrls: ['./menu-navegacion.component.css']
 })
 export class MenuNavegacionComponent implements OnInit {
-  userRole: string | null = null; // Guardamos el rol del usuario
+  userRole: string | null = null; // Variable para almacenar el rol del usuario
 
-  constructor(private authService: LoginService) {}
+  constructor(private loginService: LoginService) {}
 
-  ngOnInit() {
-    const user = this.authService.currentUserValue;
-    this.userRole = user?.role || null; // Si no hay usuario logueado, userRole será null
+  ngOnInit(): void {
+    // Suscribirse al observable para obtener el usuario actual
+    this.loginService.currentUser.subscribe(user => {
+      this.userRole = user?.role || null; // Si no hay usuario logueado, establece null
+      console.log('Role del usuario:', this.userRole);
+    });
   }
 
+  // Método para verificar si el usuario está autenticado
   isAuthenticated(): boolean {
-    return this.authService.isAuthenticated();
+    return this.loginService.isAuthenticated();
   }
 
-  isAdmin(): boolean {
-    return this.userRole === 'admin';
-  }
-
-  logout() {
-    this.authService.logout();
+  // Método para cerrar sesión
+  logout(): void {
+    this.loginService.logout();
   }
 }

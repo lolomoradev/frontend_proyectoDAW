@@ -1,3 +1,4 @@
+// src/app/components/login/login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -33,10 +34,11 @@ export class LoginComponent {
         next: (response) => {
           console.log('Respuesta del login:', response);
           
-          // Verificamos si el backend devuelve un token
-          if (response && response.token) {
+          // Verificamos si el backend devuelve un token y un userId
+          if (response && response.token && response.userId) {
             console.log('Token recibido:', response.token);
-            // Opcional: hacer cualquier otra acción con el token
+            console.log('User ID recibido:', response.userId);
+            // Opcional: hacer cualquier otra acción con el token y el userId
           }
           
           // Redirigimos al usuario a la página de inicio

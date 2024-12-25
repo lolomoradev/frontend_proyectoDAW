@@ -1,3 +1,4 @@
+// src/app/components/perfil-usuario/perfil-usuario.component.ts
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -28,15 +29,10 @@ export class PerfilUsuarioComponent implements OnInit {
 
   // Método para cargar el perfil del usuario
   cargarPerfil() {
-    const token = this.loginService.getToken(); // Recuperar el token JWT del servicio
+    const userId = this.loginService.getUserId(); // Obtener el ID del usuario
 
-    if (token) {
-      // Puedes dejar la lógica manual de cabeceras...
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-      // ...o confiar en el interceptor y simplemente:
-      // this.http.get<any>('http://localhost:8080/perfil')
-      this.http.get<any>('http://localhost:8080/perfil', { headers })
+    if (userId) {
+      this.http.get<any>(`http://localhost:8080/api/usuarios/${userId}`)
         .subscribe(
           (data) => {
             this.usuario = data; // Asignar los datos al objeto usuario
@@ -49,7 +45,7 @@ export class PerfilUsuarioComponent implements OnInit {
           }
         );
     } else {
-      this.router.navigate(['/login']); // Si no hay token, redirige al login
+      this.router.navigate(['/login']); // Si no hay ID de usuario, redirige al login
     }
   }
 }

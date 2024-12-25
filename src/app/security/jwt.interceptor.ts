@@ -1,4 +1,4 @@
-// src/app/interceptors/jwt.interceptor.ts
+// src/app/security/jwt.interceptor.ts
 import { Injectable } from '@angular/core';
 import {
   HttpEvent,
@@ -14,16 +14,15 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private loginService: LoginService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('[JwtInterceptor] Intercepting => ', req.url);
     const token = this.loginService.getToken();
+
     if (token) {
-      const authReq = req.clone({ setHeaders: { Authorization: `Bearer ${token}` }});
-      console.log('[JwtInterceptor] - Token:', token);
-      return next.handle(authReq);
+      const cloned = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next.handle(cloned);
     }
-    console.log('[JwtInterceptor] - No token present');
+
     return next.handle(req);
   }
-  
-  
 }
