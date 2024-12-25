@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { InfoSectionLoginComponent } from '../info-section-login/info-section-login.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+
+import { InfoSectionLoginComponent } from '../info-section-login/info-section-login.component';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, InfoSectionLoginComponent, HttpClientModule, CommonModule],
+  // Eliminamos HttpClientModule de los imports
+  imports: [FormsModule, CommonModule, InfoSectionLoginComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -18,7 +19,10 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';  // Para mostrar errores de login
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   login() {
     console.log('Enviando credenciales:', { username: this.username, password: this.password });
@@ -29,10 +33,10 @@ export class LoginComponent {
         next: (response) => {
           console.log('Respuesta del login:', response);
           
-          // Verificamos si el backend devuelve un token y almacenamos los datos
+          // Verificamos si el backend devuelve un token
           if (response && response.token) {
             console.log('Token recibido:', response.token);
-            // Podemos hacer algo más aquí si es necesario, como almacenar el token en algún lado.
+            // Opcional: hacer cualquier otra acción con el token
           }
           
           // Redirigimos al usuario a la página de inicio
@@ -41,12 +45,9 @@ export class LoginComponent {
         error: (error) => {
           console.error('Error al hacer login:', error);
 
-          // Si el error tiene un mensaje, lo mostramos
           if (error.error?.message) {
             console.log('Mensaje de error del servidor:', error.error.message);
           }
-
-          // Establecemos el mensaje de error para mostrarlo en la interfaz
           this.errorMessage = 'Login fallido. Verifica tus credenciales o intenta de nuevo más tarde.';
         }
       });

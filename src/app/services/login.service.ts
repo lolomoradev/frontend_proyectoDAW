@@ -8,14 +8,16 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:8080/login'; // URL del backend para login
+  private apiUrl = 'http://localhost:8080/api/login'; // URL del backend para login
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
   constructor(private http: HttpClient, private router: Router) {
     // Verificar si estamos en el navegador antes de acceder a localStorage
     if (typeof window !== 'undefined' && window.localStorage) {
-      this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
+      this.currentUserSubject = new BehaviorSubject<any>(
+        JSON.parse(localStorage.getItem('currentUser') || '{}')
+      );
       this.currentUser = this.currentUserSubject.asObservable();
     } else {
       // Si no estamos en el navegador (SSR), inicializamos con un valor vacío
@@ -38,7 +40,7 @@ export class LoginService {
             // Si el login es exitoso, almacenamos el token en localStorage (solo si estamos en el navegador)
             if (typeof window !== 'undefined' && window.localStorage) {
               localStorage.setItem('currentUser', JSON.stringify(response));
-              this.currentUserSubject.next(response);  // Actualizamos el sujeto con el usuario logueado
+              this.currentUserSubject.next(response); // Actualizamos el sujeto con el usuario logueado
             }
           }
         })
@@ -49,20 +51,22 @@ export class LoginService {
   logout() {
     // Eliminar del localStorage solo si estamos en el navegador
     if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('currentUser');  // Eliminamos el token y los datos del usuario
+      localStorage.removeItem('currentUser'); // Eliminamos el token y los datos del usuario
     }
-    this.currentUserSubject.next(null);  // Actualizamos el sujeto para indicar que no hay usuario logueado
-    this.router.navigate(['/login']);  // Redirigimos a la página de login
+    this.currentUserSubject.next(null); // Indicamos que ya no hay un usuario logueado
+    this.router.navigate(['/login']); // Redirigimos a la página de login
   }
 
   // Método para verificar si el usuario está autenticado
   isAuthenticated(): boolean {
-    return !!this.currentUserValue;  // Retorna true si hay un usuario autenticado
+    const user = this.currentUserValue;
+    // Retorna true si existe usuario y token
+    return !!user && !!user.token;
   }
 
   // Método para obtener el token JWT almacenado
   getToken(): string {
     const user = this.currentUserValue;
-    return user ? user.token : '';  // Devuelve el token JWT si el usuario está autenticado
+    return user ? user.token : '';
   }
 }

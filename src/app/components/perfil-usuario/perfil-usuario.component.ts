@@ -3,12 +3,12 @@ import { LoginService } from '../../services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-perfil-usuario',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  // Eliminamos HttpClientModule de imports.
+  imports: [CommonModule],
   templateUrl: './perfil-usuario.component.html',
   styleUrls: ['./perfil-usuario.component.css']
 })
@@ -17,7 +17,7 @@ export class PerfilUsuarioComponent implements OnInit {
   loading: boolean = true; // Variable para mostrar el estado de carga
 
   constructor(
-    private loginService: LoginService, 
+    private loginService: LoginService,
     private http: HttpClient,
     private router: Router
   ) {}
@@ -31,14 +31,16 @@ export class PerfilUsuarioComponent implements OnInit {
     const token = this.loginService.getToken(); // Recuperar el token JWT del servicio
 
     if (token) {
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // Establecer el header Authorization con el token
+      // Puedes dejar la lógica manual de cabeceras...
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-      // Hacer la solicitud GET al backend para obtener los datos del perfil
+      // ...o confiar en el interceptor y simplemente:
+      // this.http.get<any>('http://localhost:8080/perfil')
       this.http.get<any>('http://localhost:8080/perfil', { headers })
         .subscribe(
           (data) => {
             this.usuario = data; // Asignar los datos al objeto usuario
-            this.loading = false; // Ya no está cargando
+            this.loading = false;
           },
           (error) => {
             console.error('Error al obtener el perfil del usuario', error);
