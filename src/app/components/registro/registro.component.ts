@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+// src/app/components/registro/registro.component.ts
+
+import { Component, ViewChild } from '@angular/core';
 import { RegistroService } from '../../services/registro.service';
 import { Router } from '@angular/router';
-import { UsuarioDTO } from '../../models/usuarioDTO';
+import { UsuarioRegistroDTO } from '../../models/usuarioRegistroDTO';
 import { RegistroDemandanteComponent } from '../registro-demandante/registro-demandante.component';
 import { RegistroOfertanteComponent } from '../registro-ofertante/registro-ofertante.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RegistroDTO } from '../../models/registroDTO';
 
 @Component({
   selector: 'app-registro',
@@ -14,41 +17,106 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-
-
 export class RegistroComponent {
-  usuario: UsuarioDTO = new UsuarioDTO();  // Crear un nuevo UsuarioDTO
+  usuario: UsuarioRegistroDTO = {
+    nombre: '',
+    apellido1: '',
+    apellido2: '',
+    email: '',
+    username: '',
+    password: '',
+    biografia: '',
+    idiomasHablados: '',
+    telefono: '',
+    rol: ''
+  };
 
   // Lista de idiomas disponibles
   idiomasDisponibles = [
-    'Espanol', 'Ingles', 'Frances', 'Aleman', 'Italiano', 'Portugues', 'Chino', 
-    'Ruso', 'Japones', 'Danes', 'Sueco', 'Ucraniano', 'Otro'
+    'Español', 'Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugués', 'Chino', 
+    'Ruso', 'Japonés', 'Danés', 'Sueco', 'Ucraniano', 'Otro'
   ];
 
   idiomasSeleccionados: string[] = [];
 
+  // Referencias a los componentes hijos
+  @ViewChild(RegistroDemandanteComponent) registroDemandanteComponent!: RegistroDemandanteComponent;
+  @ViewChild(RegistroOfertanteComponent) registroOfertanteComponent!: RegistroOfertanteComponent;
 
   constructor(private registroService: RegistroService, private router: Router) {}
 
   // Método de registro
   register() {
-    console.log('Datos a enviar al backend:', this.usuario);
+    // Validar campos requeridos
+    if (!this.usuario.nombre || !this.usuario.apellido1 || !this.usuario.email || !this.usuario.username || !this.usuario.password || !this.usuario.rol) {
+      alert('Por favor, completa todos los campos obligatorios.');
+      return;
+    }
 
-    this.registroService.register(this.usuario).subscribe({
+    if ((this.usuario.rol === 'ofertante' || this.usuario.rol === 'ambos') && !this.registroOfertanteComponent.oferta.experiencia) {
+      alert('Por favor, completa la experiencia como ofertante.');
+      return;
+    }
+
+    if ((this.usuario.rol === 'demandante' || this.usuario.rol === 'ambos') && !this.registroDemandanteComponent.demanda.telefonoEmergencia) {
+      alert('Por favor, completa el teléfono de emergencia como demandante.');
+      return;
+    }
+
+    // Crear el objeto RegistroDTO excluyendo idUsuario y fechaRegistro
+    let registroDTO: RegistroDTO = {
+      usuario: { 
+        nombre: this.usuario.nombre,
+        apellido1: this.usuario.apellido1,
+        apellido2: this.usuario.apellido2,
+        email: this.usuario.email,
+        username: this.usuario.username,
+        password: this.usuario.password,
+        biografia: this.usuario.biografia,
+        idiomasHablados: this.idiomasSeleccionados.join(', '),
+        telefono: this.usuario.telefono,
+        rol: this.usuario.rol
+      },
+      // Añadir ofertante o demandante según el rol
+    };
+
+    if (this.usuario.rol === 'ofertante' || this.usuario.rol === 'ambos') {
+      registroDTO.ofertante = { 
+        experiencia: this.registroOfertanteComponent.oferta.experiencia,
+        certificacion: this.registroOfertanteComponent.oferta.certificacion,
+        valoracion: this.registroOfertanteComponent.oferta.valoracion
+      };
+    }
+
+    if (this.usuario.rol === 'demandante' || this.usuario.rol === 'ambos') {
+      registroDTO.demandante = { 
+        telefonoEmergencia: this.registroDemandanteComponent.demanda.telefonoEmergencia,
+        edad: this.registroDemandanteComponent.demanda.edad,
+        saldo: this.registroDemandanteComponent.demanda.saldo
+      };
+    }
+
+    console.log('Datos a enviar al backend:', registroDTO);
+
+    this.registroService.register(registroDTO).subscribe({
       next: () => {
         this.router.navigate(['/login']);  // Redirigir al login después de registrarse
       },
       error: (error) => {
         console.error('Error de registro', error);
-        alert('Error al registrar el usuario');
+        if (error.status === 400) {
+          alert('Datos inválidos. Por favor, verifica la información ingresada.');
+        } else if (error.status === 403) {
+          alert('No tienes permisos para realizar esta acción.');
+        } else {
+          alert('Error al registrar el usuario. Intenta nuevamente más tarde.');
+        }
       }
     });
   }
 
   onIdiomasChange() {
-    // Convertir el array de idiomas seleccionados a un string, separado por comas
-    this.usuario.idiomasHablados = this.idiomasSeleccionados.join(', ');
-    console.log('Idiomas seleccionados como string:', this.usuario.idiomasHablados);
+    // Ya manejado en register()
   }
 
   // Manejo del cambio de rol

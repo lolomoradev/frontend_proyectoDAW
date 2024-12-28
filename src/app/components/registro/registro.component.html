@@ -3,6 +3,7 @@
 
   <form class="formulario-registro-formulario" (ngSubmit)="register()">
     
+    <!-- Campos de Usuario -->
     <input
       id="nombre"
       placeholder="Nombre"
@@ -71,17 +72,17 @@
     ></textarea>
 
     <select
-    id="idiomasHablados"
-    class="formulario-registro-input"
-    [(ngModel)]="idiomasSeleccionados"
-    name="idiomasHablados"
-    multiple
-    (change)="onIdiomasChange()"
-  >
-    <option *ngFor="let idioma of idiomasDisponibles" [value]="idioma">
-      {{ idioma }}
-    </option>
-  </select>
+      id="idiomasHablados"
+      class="formulario-registro-input"
+      [(ngModel)]="idiomasSeleccionados"
+      name="idiomasHablados"
+      multiple
+      (change)="onIdiomasChange()"
+    >
+      <option *ngFor="let idioma of idiomasDisponibles" [value]="idioma">
+        {{ idioma }}
+      </option>
+    </select>
 
     <input
       id="telefono"
@@ -125,5 +126,4 @@
       Registrarse
     </button>
   </form>
-
 </div>

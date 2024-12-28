@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 export class RegistroDemandanteComponent {
   demanda = {
     telefonoEmergencia: '',
-    edad: null,
+    edad: 0,
     saldo: 0,
   };
 }

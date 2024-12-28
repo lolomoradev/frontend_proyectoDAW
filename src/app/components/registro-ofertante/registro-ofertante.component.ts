@@ -12,6 +12,6 @@ export class RegistroOfertanteComponent {
   oferta = {
     experiencia: '',
     certificacion: '',
-    valoracion: null,
+    valoracion: 0,
   };
 }

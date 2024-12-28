@@ -1,19 +1,23 @@
+// src/app/services/registro.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RegistroDTO } from '../models/registroDTO';
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { UsuarioDTO } from '../models/usuarioDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroService {
-  private apiUrl = 'http://localhost:8080/api/registrar'; // Cambia la URL según tu configuración
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:8080/api/registrar'; // Asegúrate de que esta URL es correcta
 
-  register(usuario: UsuarioDTO): Observable<UsuarioDTO> {
-    console.log("Usuario a registrar", usuario);
-    return this.http.post<UsuarioDTO>(this.apiUrl, usuario);
+  constructor(private http: HttpClient) { }
+
+  register(registro: RegistroDTO): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(this.apiUrl, registro, { headers });
   }
 }
