@@ -11,19 +11,30 @@ export class ActividadDemandanteService {
 
   constructor(private http: HttpClient) {}
 
+  // Obtener todas las reservas de actividades
   getActividadDemandantes(): Observable<ActividadDemandante[]> {
+    console.log('ActividadDemandanteService: Solicitando todas las reservas de actividades desde', this.apiUrl);
     return this.http.get<ActividadDemandante[]>(this.apiUrl);
   }
 
+  // Obtener una reserva de actividad por ID
   getActividadDemandante(id: number): Observable<ActividadDemandante> {
-    return this.http.get<ActividadDemandante>(`${this.apiUrl}/${id}`);
+    const url = `${this.apiUrl}/${id}`;
+    console.log(`ActividadDemandanteService: Solicitando reserva de actividad con ID ${id} desde`, url);
+    return this.http.get<ActividadDemandante>(url);
   }
 
-  crearActividadDemandante(actividadDemandante: ActividadDemandante): Observable<ActividadDemandante> {
-    return this.http.post<ActividadDemandante>(this.apiUrl, actividadDemandante);
+  // Crear una nueva reserva de actividad
+  crearActividadDemandante(actividadDemandante: ActividadDemandante): Observable<any> {
+    const url = `${this.apiUrl}/reservar`;
+    console.log('ActividadDemandanteService: Enviando solicitud para crear reserva de actividad:', actividadDemandante, 'a la URL:', url);
+    return this.http.post<any>(url, actividadDemandante);
   }
 
+  // Eliminar una reserva de actividad por ID
   eliminarActividadDemandante(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const url = `${this.apiUrl}/${id}`;
+    console.log(`ActividadDemandanteService: Enviando solicitud para eliminar reserva de actividad con ID ${id} desde`, url);
+    return this.http.delete<void>(url);
   }
 }

@@ -1,17 +1,31 @@
-
-Home
-
+<!-- src/app/components/home/home.component.html -->
 <div class="home-container">
-    <!-- Vista para el perfil de ofertante -->
-    <app-home-ofertante *ngIf="userRole === 'Ofertante'"></app-home-ofertante>
-  
-    <!-- Vista para el perfil de demandante -->
-    <app-home-demandante *ngIf="userRole === 'Demandante'"></app-home-demandante>
-  
-    <!-- Vista para el perfil de administrador -->
-    <app-home-admin *ngIf="userRole === 'Admin'"></app-home-admin>
-  
-    <!-- Vista para usuarios sin rol asignado -->
-    <p *ngIf="!userRole">Por favor, inicia sesión para ver el contenido adecuado a tu perfil.</p>
+  <!-- Bienvenida personalizada -->
+  <h1>Bienvenid, {{ nombreUsuario }}</h1>
+
+  <!-- Mostrar barra de búsqueda solo para demandantes -->
+  <div *ngIf="userRole === 'demandante'" class="busqueda-container">
+    <h2>Buscar actividades</h2>
+    <input
+      type="text"
+      [(ngModel)]="busqueda"
+      placeholder="Introduce el título de la actividad"
+      (input)="buscarActividades()"
+      class="busqueda-input"
+    />
   </div>
-  
+
+  <!-- Mostrar actividades filtradas -->
+  <div *ngIf="actividadesFiltradas.length > 0" class="actividades-container">
+    <h2>Resultados de la búsqueda</h2>
+    <div *ngFor="let actividad of actividadesFiltradas" class="actividad-card">
+      <h3>{{ actividad.titulo }}</h3>
+      <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
+      <p><strong>Precio:</strong> {{ actividad.precio | currency }}</p>
+      <p><strong>Ubicación:</strong> {{ actividad.ubicacion }}</p>
+      <p><strong>Fecha:</strong> {{ actividad.fechaRealizacion | date }}</p>
+      <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
+    </div>
+  </div>
+
+</div>

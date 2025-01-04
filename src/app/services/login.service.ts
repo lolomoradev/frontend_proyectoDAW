@@ -90,4 +90,10 @@ export class LoginService {
     const user = this.currentUserValue;
     return user ? user.role : null;
   }
+
+    // Nuevo método para obtener el nombre del usuario
+    getUserName(): string | null {
+      const user = this.currentUserValue;
+      return user ? user.username : null;
+    }
 }

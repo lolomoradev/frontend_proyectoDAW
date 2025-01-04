@@ -1,85 +1,176 @@
-/* Estilos para el contenedor principal de las actividades */
+/* src/app/components/lista-actividades/lista-actividades.component.css */
+
+/* General */
 .container-listaActividades {
     max-width: 1200px;
-    margin: 20px auto;
-    padding: 10px;
-}
-
-/* Contenedor de las tarjetas */
-.tarjetas-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-/* Estilos para cada tarjeta */
-.tarjeta {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    margin: 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-}
-
-/* Estilo del header de la tarjeta */
-.tarjeta-header {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.tarjeta-header h3 {
-    font-size: 1.5em;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
     color: #333;
-    margin-bottom: 5px;
 }
 
-.tarjeta-header .precio {
-    font-size: 1.2em;
+/* Formulario */
+.agregar-actividad {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.agregar-actividad h2 {
+    margin-bottom: 15px;
     color: #007bff;
-    font-weight: bold;
 }
 
-/* Estilo del cuerpo de la tarjeta */
-.tarjeta-body {
+.form-group {
     margin-bottom: 15px;
 }
 
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.form-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.form-actions button:hover {
+    background-color: #0056b3;
+}
+
+button[type="button"] {
+    background-color: #dc3545;
+}
+
+button[type="button"]:hover {
+    background-color: #c82333;
+}
+
+/* Tarjetas */
+.tarjetas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.tarjeta {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.tarjeta-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.tarjeta-header .precio {
+    margin: 5px 0 0;
+    font-weight: bold;
+}
+
+.tarjeta-body {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 .tarjeta-body p {
-    font-size: 0.9em;
     margin: 5px 0;
 }
 
-/* Estilo del footer de la tarjeta */
+.tarjeta-body strong {
+    color: #555;
+}
+
 .tarjeta-footer {
     display: flex;
     justify-content: space-between;
-    margin-top: auto;
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
 }
 
-/* Estilos de los botones */
-.tarjeta-footer button {
+.tarjeta-footer .btn {
     padding: 8px 12px;
-    font-size: 0.9em;
+    font-size: 14px;
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-.tarjeta-footer .btn-primary {
+.btn-primary {
     background-color: #007bff;
     color: white;
 }
 
-.tarjeta-footer .btn-danger {
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger {
     background-color: #dc3545;
     color: white;
 }
 
-.tarjeta-footer button:hover {
-    opacity: 0.8;
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-listaActividades {
+        padding: 10px;
+    }
+
+    .tarjetas-container {
+        grid-template-columns: 1fr;
+    }
 }

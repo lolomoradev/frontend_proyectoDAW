@@ -13,7 +13,8 @@ export class UsuarioDTO {
     idiomasHablados?:string;
     telefono?: string;
     rol: string;
-  
+    idOfertante?: number; // Añade este campo si no está presente
+
     // Constructor con valores por defecto
     constructor(
       idUsuario: number = 0,
@@ -27,7 +28,9 @@ export class UsuarioDTO {
       fechaRegistro: Date = new Date(),
       idiomasHablados?: string,
       telefono?: string,
-      rol: string = ''
+      rol: string = '',
+      idOfertante?: number
+
     ) {
       this.idUsuario = idUsuario;
       this.nombre = nombre;
@@ -41,6 +44,7 @@ export class UsuarioDTO {
       this.idiomasHablados = idiomasHablados;
       this.telefono = telefono;
       this.rol = rol;
+      this.idOfertante = idOfertante
     }
   }
   

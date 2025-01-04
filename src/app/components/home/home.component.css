@@ -1,6 +1,91 @@
+/* src/app/components/home/home.component.css */
+
+/* Contenedor principal */
 .home-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de bienvenida */
+.home-container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Contenedor de búsqueda */
+.busqueda-container {
+  margin: 20px 0;
+}
+
+.busqueda-container h2 {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.busqueda-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.busqueda-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Contenedor de actividades */
+.actividades-container {
+  margin-top: 20px;
+}
+
+.actividades-container h2 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Tarjetas de actividad */
+.actividad-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  text-align: left;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.actividad-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.actividad-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.actividad-card p strong {
+  color: #333;
+}
+
+/* Mensaje de sin resultados */
+.home-container p {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 20px;
+}

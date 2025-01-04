@@ -1,4 +1,119 @@
+<!-- src/app/components/lista-actividades/lista-actividades.component.html -->
+
 <div class="container-listaActividades">
+
+    <!-- Formulario para Agregar o Editar Actividad (Solo para ofertantes y admins) -->
+    <div *ngIf="userRole === 'ofertante' || userRole === 'admin'" class="agregar-actividad">
+        <h2>{{ editando ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
+        <form (ngSubmit)="editando ? actualizarActividad() : agregarActividad()" #actividadForm="ngForm">
+            <!-- Campos del formulario -->
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input id="titulo" type="text" [(ngModel)]="actividadActual.titulo" name="titulo" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" [(ngModel)]="actividadActual.descripcion" name="descripcion"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input id="precio" type="number" [(ngModel)]="actividadActual.precio" name="precio" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="tipoPago">Tipo de Pago:</label>
+                <input id="tipoPago" type="text" [(ngModel)]="actividadActual.tipoPago" name="tipoPago" />
+            </div>
+            
+            <div class="form-group">
+                <label for="tipoActividad">Tipo de Actividad:</label>
+                <select id="tipoActividad" [(ngModel)]="actividadActual.tipoActividad" name="tipoActividad" required>
+                    <option value="" disabled selected>Selecciona un tipo de actividad:</option>
+                    <option *ngFor="let tipo of tiposActividad" [value]="tipo">{{ tipo }}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="edadRequerida">Edad Requerida:</label>
+                <input id="edadRequerida" type="number" [(ngModel)]="actividadActual.edadRequerida" name="edadRequerida" />
+            </div>
+            
+            <div class="form-group">
+                <label for="estadoActividad">Estado de Actividad:</label>
+                <input id="estadoActividad" type="text" [(ngModel)]="actividadActual.estadoActividad" name="estadoActividad" />
+            </div>
+            
+            <div class="form-group">
+                <label for="puntoEncuentro">Punto de Encuentro:</label>
+                <input id="puntoEncuentro" type="text" [(ngModel)]="actividadActual.puntoEncuentro" name="puntoEncuentro" />
+            </div>
+            
+            <div class="form-group">
+                <label for="minimoPersonas">Mínimo Personas:</label>
+                <input id="minimoPersonas" type="number" [(ngModel)]="actividadActual.minimoPersonas" name="minimoPersonas" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="maximoPersonas">Máximo Personas:</label>
+                <input id="maximoPersonas" type="number" [(ngModel)]="actividadActual.maximoPersonas" name="maximoPersonas" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="fechaPublicacion">Fecha Publicación:</label>
+                <input id="fechaPublicacion" type="date" [(ngModel)]="actividadActual.fechaPublicacion" name="fechaPublicacion" />
+            </div>
+            
+            <div class="form-group">
+                <label for="fechaLimiteInscripcion">Fecha Límite de Inscripción:</label>
+                <input id="fechaLimiteInscripcion" type="date" [(ngModel)]="actividadActual.fechaLimiteInscripcion" name="fechaLimiteInscripcion" />
+            </div>
+            
+            <div class="form-group">
+                <label for="fechaRealizacion">Fecha de Realización:</label>
+                <input id="fechaRealizacion" type="date" [(ngModel)]="actividadActual.fechaRealizacion" name="fechaRealizacion" />
+            </div>
+            
+            <div class="form-group">
+                <label for="duracion">Duración:</label>
+                <input id="duracion" type="text" [(ngModel)]="actividadActual.duracion" name="duracion" />
+            </div>
+            
+            <div class="form-group">
+                <label for="ubicacion">Ubicación:</label>
+                <input id="ubicacion" type="text" [(ngModel)]="actividadActual.ubicacion" name="ubicacion" />
+            </div>
+            
+            <div class="form-group">
+                <label for="dificultad">Dificultad:</label>
+                <select id="dificultad" [(ngModel)]="actividadActual.dificultad" name="dificultad" required>
+                    <option value="" disabled selected>Selecciona la dificultad</option>
+                    <option *ngFor="let nivel of dificultades" [value]="nivel">{{ nivel }}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="politicaCancelacion">Política de Cancelación:</label>
+                <input id="politicaCancelacion" type="text" [(ngModel)]="actividadActual.politicaCancelacion" name="politicaCancelacion" />
+            </div>
+            
+            <div class="form-group">
+                <label for="materialNecesario">Material Necesario:</label>
+                <input id="materialNecesario" type="text" [(ngModel)]="actividadActual.materialNecesario" name="materialNecesario" />
+            </div>
+            
+            <div class="form-group">
+                <label for="idOfertante">ID Ofertante:</label>
+                <input id="idOfertante" type="number" [(ngModel)]="actividadActual.idOfertante" name="idOfertante" required />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
+                <button type="button" (click)="resetFormulario()" *ngIf="editando">Cancelar</button>
+            </div>
+        </form>
+    </div>
 
     <!-- Contenedor de tarjetas -->
     <div class="tarjetas-container">
@@ -18,135 +133,13 @@
                 <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
             </div>
             <div class="tarjeta-footer">
-                <button (click)="editarActividad(actividad)" class="btn btn-primary">Editar</button>
-                <button (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger">Eliminar</button>
+                <!-- Botones de Editar y Eliminar (solo para ofertantes y admins) -->
+                <button *ngIf="userRole === 'ofertante' || userRole === 'admin'" (click)="editarActividad(actividad)" class="btn btn-primary">Editar</button>
+                <button *ngIf="userRole === 'ofertante' || userRole === 'admin'" (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger">Eliminar</button>
+                
+                <!-- Botón de Reservar (solo para demandantes) -->
+                <button *ngIf="userRole === 'demandante'" (click)="reservarActividad(actividad.idActividad)" class="btn btn-success">Reservar</button>
             </div>
         </div>
     </div>
 </div>
-
-
-
-<!--
-
-<div>
-    <h2>Agregar actividad</h2>
-    
-    <form (ngSubmit)="editando ? actualizarActividad() : agregarActividad()" #actividadForm="ngForm">
-        <div class="form-group">
-            <label for="titulo">Título:</label>
-            <input id="titulo" type="text" [(ngModel)]="actividadActual.titulo" name="titulo" required />
-        </div>
-        
-        <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" [(ngModel)]="actividadActual.descripcion" name="descripcion"></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="precio">Precio:</label>
-            <input id="precio" type="number" [(ngModel)]="actividadActual.precio" name="precio" required />
-        </div>
-        
-        <div class="form-group">
-            <label for="tipoPago">Tipo de Pago:</label>
-            <input id="tipoPago" type="text" [(ngModel)]="actividadActual.tipoPago" name="tipoPago" />
-        </div>
-        
-        <div class="form-group">
-            <label for="tipoActividad">Tipo de Actividad:</label>
-            <select id="tipoActividad" [(ngModel)]="actividadActual.tipoActividad" name="tipoActividad" required>
-                <option value="" disabled selected>Selecciona un tipo de actividad:</option>
-                <option *ngFor="let tipo of tiposActividad" [value]="tipo">{{ tipo }}</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="edadRequerida">Edad Requerida:</label>
-            <input id="edadRequerida" type="number" [(ngModel)]="actividadActual.edadRequerida" name="edadRequerida" />
-        </div>
-        
-        <div class="form-group">
-            <label for="estadoActividad">Estado de Actividad:</label>
-            <input id="estadoActividad" type="text" [(ngModel)]="actividadActual.estadoActividad" name="estadoActividad" />
-        </div>
-        
-        <div class="form-group">
-            <label for="puntoEncuentro">Punto de Encuentro:</label>
-            <input id="puntoEncuentro" type="text" [(ngModel)]="actividadActual.puntoEncuentro" name="puntoEncuentro" />
-        </div>
-        
-        <div class="form-group">
-            <label for="minimoPersonas">Mínimo Personas:</label>
-            <input id="minimoPersonas" type="number" [(ngModel)]="actividadActual.minimoPersonas" name="minimoPersonas" required />
-        </div>
-        
-        <div class="form-group">
-            <label for="maximoPersonas">Máximo Personas:</label>
-            <input id="maximoPersonas" type="number" [(ngModel)]="actividadActual.maximoPersonas" name="maximoPersonas" required />
-        </div>
-        
-        <div class="form-group">
-            <label for="fechaPublicacion">Fecha Publicación:</label>
-            <input id="fechaPublicacion" type="date" [(ngModel)]="actividadActual.fechaPublicacion" name="fechaPublicacion" />
-        </div>
-        
-        <div class="form-group">
-            <label for="fechaLimiteInscripcion">Fecha Límite de Inscripción:</label>
-            <input id="fechaLimiteInscripcion" type="date" [(ngModel)]="actividadActual.fechaLimiteInscripcion" name="fechaLimiteInscripcion" />
-        </div>
-        
-        <div class="form-group">
-            <label for="fechaRealizacion">Fecha de Realización:</label>
-            <input id="fechaRealizacion" type="date" [(ngModel)]="actividadActual.fechaRealizacion" name="fechaRealizacion" />
-        </div>
-        
-        <div class="form-group">
-            <label for="duracion">Duración:</label>
-            <input id="duracion" type="text" [(ngModel)]="actividadActual.duracion" name="duracion" />
-        </div>
-        
-        <div class="form-group">
-            <label for="ubicacion">Ubicación:</label>
-            <input id="ubicacion" type="text" [(ngModel)]="actividadActual.ubicacion" name="ubicacion" />
-        </div>
-        
-        <div class="form-group">
-            <label for="dificultad">Dificultad:</label>
-            <select id="dificultad" [(ngModel)]="actividadActual.dificultad" name="dificultad" required>
-                <option value="" disabled selected>Selecciona la dificultad</option>
-                <option *ngFor="let nivel of dificultades" [value]="nivel">{{ nivel }}</option>
-            </select>
-        </div>
-        
-        
-        <div class="form-group">
-            <label for="politicaCancelacion">Política de Cancelación:</label>
-            <input id="politicaCancelacion" type="text" [(ngModel)]="actividadActual.politicaCancelacion" name="politicaCancelacion" />
-        </div>
-        
-        <div class="form-group">
-            <label for="materialNecesario">Material Necesario:</label>
-            <input id="materialNecesario" type="text" [(ngModel)]="actividadActual.materialNecesario" name="materialNecesario" />
-        </div>
-        
-        <div class="form-group">
-            <label for="idOfertante">ID Ofertante:</label>
-            <input id="idOfertante" type="number" [(ngModel)]="actividadActual.idOfertante" name="idOfertante" required />
-        </div>
-
-        <div class="form-actions">
-            <button type="submit">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
-            <button type="button" (click)="resetFormulario()" *ngIf="editando">Cancelar</button>
-        </div>
-    </form>
-  
-    <ul>
-        <li *ngFor="let actividad of actividades">
-            {{ actividad.titulo }} - {{ actividad.descripcion }} - {{ actividad.precio }} - {{ actividad.fechaPublicacion | date }}
-            <button (click)="editarActividad(actividad)">Editar</button>
-            <button (click)="eliminarActividad(actividad.idActividad)">Eliminar</button>
-        </li>
-    </ul>
-</div>
--->
