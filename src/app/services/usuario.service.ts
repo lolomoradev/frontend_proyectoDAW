@@ -33,6 +33,11 @@ export class UsuarioService {
     return this.http.put<UsuarioDTO>(`${this.apiUrl}/actualizar/${id}`, usuario);  // Ruta para actualizar usuario por ID
   }
 
+    // Método para actualizar el perfil (con o sin nueva contraseña)
+    actualizarPerfil(datos: any): Observable<any> {
+      return this.http.put(`${this.apiUrl}/actualizar`, datos);
+    }
+
   // Borrar un usuario por ID
   borrarUsuario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/borrar/${id}`);  // Ruta para borrar usuario

@@ -51,26 +51,52 @@ export class PerfilUsuarioComponent implements OnInit {
     }
   }
 
-  // Método para editar el perfil
   editarPerfil() {
     if (!this.usuario.idUsuario) {
       console.warn("No se puede editar porque el usuario no tiene ID.");
       return;
     }
-
-    this.http.put<any>(`http://localhost:8080/api/actualizar/${this.usuario.idUsuario}`, this.usuario)
+  
+    const token = this.loginService.getToken();
+    if (!token) {
+      console.error("No se encuentra el token de autenticación.");
+      alert('No estás autenticado. Por favor, inicia sesión.');
+      return;
+    }
+  
+    // Crear un objeto con los campos editables
+    const datosActualizados = {
+      nombre: this.usuario.nombre,
+      apellido1: this.usuario.apellido1,
+      apellido2: this.usuario.apellido2,
+      email: this.usuario.email,
+      biografia: this.usuario.biografia,
+      idiomasHablados: this.usuario.idiomasHablados,
+      telefono: this.usuario.telefono
+    };
+  
+    const url = `http://localhost:8080/api/actualizar/${this.usuario.idUsuario}`;
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+  
+    this.http.put<any>(url, datosActualizados, { headers })
       .subscribe(
         (data) => {
+          console.log('Perfil actualizado con éxito:', data);
           alert('Perfil actualizado con éxito.');
-          this.usuario = data; // Actualizar los datos en el frontend
-          this.mostrarFormulario = false; // Ocultar el formulario
+          this.usuario = data;
+          this.mostrarFormulario = false;
         },
         (error) => {
-          console.error('Error al actualizar el perfil del usuario', error);
+          console.error('Error al actualizar el perfil', error);
           alert('Hubo un error al actualizar el perfil. Intenta nuevamente.');
         }
       );
   }
+  
+
 
   eliminarCuenta() {
     if (confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')) {

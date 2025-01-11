@@ -158,40 +158,41 @@ export class ListaActividadesComponent implements OnInit {
     });
   }
 
-  editarActividad(actividadDTO: ActividadDTO) {
-    console.info("Intentando editar actividad con ID: ", actividadDTO.idActividad);
-    if (this.userRole === 'ofertante' || this.userRole === 'admin') {
-      this.editando = true;
-      this.actividadActual = { ...actividadDTO }; // Copia la actividad a editar
-      console.debug("Actividad actualizada para edición: ", this.actividadActual);
-    } else {
-      console.warn("Usuario sin permisos para editar actividades");
-      alert('No tienes permisos para editar actividades.');
-    }
+  editarActividad(actividad: ActividadDTO) {
+    console.info("Cargando datos de actividad para editar:", actividad);
+    this.actividadActual = { ...actividad }; // Copiar los datos de la actividad seleccionada a actividadActual
+    this.editando = true; // Cambiar el estado de edición a verdadero
   }
+  
 
-  actualizarActividad() {
-    console.info("Intentando actualizar actividad con ID: ", this.actividadActual.idActividad);
+  actualizarActividad(actividadDTO: ActividadDTO): void {
     if (this.userRole === 'ofertante' || this.userRole === 'admin') {
-      const id = this.actividadActual.idActividad; // Extraer el ID de la actividad actual
-      this.actividadService.actualizarActividad(id, this.actividadActual).subscribe(() => {
-        const index = this.actividades.findIndex(a => a.idActividad === id);
-        if (index !== -1) {
-          this.actividades[index] = this.actividadActual;
-          console.debug("Actividad actualizada en la lista: ", this.actividades[index]);
+        if (this.editando && actividadDTO) {
+            console.info("Actualizando actividad con ID: ", actividadDTO.idActividad);
+            console.log('Actividad a enviar:', actividadDTO); 
+
+            this.actividadService.actualizarActividad(actividadDTO).subscribe(
+                (actividad: ActividadDTO) => {
+                    const index = this.actividades.findIndex(a => a.idActividad === actividad.idActividad);
+                    if (index !== -1) {
+                        this.actividades[index] = actividad; // Actualizar la actividad en la lista
+                        console.log('Actividad actualizada:', actividad); 
+
+                    }
+                    this.resetFormulario(); // Restablecer el formulario después de la actualización
+                },
+                error => {
+                    console.error('Error al actualizar actividad:', error);
+                }
+            );
         }
-        this.resetFormulario();
-        console.info("Actividad actualizada exitosamente en el frontend");
-        alert('Actividad actualizada exitosamente.');
-      }, error => {
-        console.error('Error al actualizar actividad:', error);
-        alert('Hubo un error al actualizar la actividad. Intenta nuevamente.');
-      });
     } else {
-      console.warn("Usuario sin permisos para actualizar actividades");
-      alert('No tienes permisos para actualizar actividades.');
+        console.warn("Usuario sin permisos para editar actividades");
+        alert('No tienes permisos para editar actividades.');
     }
-  }
+}
+
+
 
   eliminarActividad(id: number) {
     console.info("Intentando eliminar actividad con ID: ", id);

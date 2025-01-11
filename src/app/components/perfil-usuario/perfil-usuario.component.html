@@ -50,37 +50,43 @@
             {{ mostrarFormulario ? 'Cancelar' : 'Editar Perfil' }}
           </button>
         </div>
-    
-        <!-- Formulario para editar perfil (visible solo si mostrarFormulario es true) -->
-        <div *ngIf="mostrarFormulario" class="perfil-usuario-editar">
-          <form (ngSubmit)="editarPerfil()" #editarPerfilForm="ngForm">
-            <div class="perfil-usuario-info-item">
-              <label for="nombre"><strong>Nombre:</strong></label>
-              <input id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required />
-            </div>
-            <div class="perfil-usuario-info-item">
-              <label for="email"><strong>Email:</strong></label>
-              <input id="email" type="email" [(ngModel)]="usuario.email" name="email" required />
-            </div>
-            <div class="perfil-usuario-info-item">
-              <label for="username"><strong>Nombre de Usuario:</strong></label>
-              <input id="username" [(ngModel)]="usuario.username" name="username" required />
-            </div>
-            <div class="perfil-usuario-info-item">
-              <label for="telefono"><strong>Teléfono:</strong></label>
-              <input id="telefono" type="tel" [(ngModel)]="usuario.telefono" name="telefono" />
-            </div>
-            <div class="perfil-usuario-info-item">
-              <label for="biografia"><strong>Biografía:</strong></label>
-              <textarea id="biografia" [(ngModel)]="usuario.biografia" name="biografia"></textarea>
-            </div>
-            <div class="perfil-usuario-actions">
-              <button type="submit" class="perfil-usuario-btn perfil-usuario-btn-primary">Guardar Cambios</button>
-            </div>
-          </form>
-        </div>
+  <!-- Formulario para editar perfil (visible solo si mostrarFormulario es true) -->
+  <div *ngIf="mostrarFormulario" class="perfil-usuario-editar">
+    <form (ngSubmit)="editarPerfil()" #editarPerfilForm="ngForm">
+      <div class="perfil-usuario-info-item">
+        <label for="nombre"><strong>Nombre:</strong></label>
+        <input id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required />
       </div>
-    </div>
+      <div class="perfil-usuario-info-item">
+        <label for="apellido1"><strong>Primer Apellido:</strong></label>
+        <input id="apellido1" [(ngModel)]="usuario.apellido1" name="apellido1" required />
+      </div>
+      <div class="perfil-usuario-info-item">
+        <label for="apellido2"><strong>Segundo Apellido:</strong></label>
+        <input id="apellido2" [(ngModel)]="usuario.apellido2" name="apellido2" />
+      </div>
+      <div class="perfil-usuario-info-item">
+        <label for="email"><strong>Email:</strong></label>
+        <input id="email" type="email" [(ngModel)]="usuario.email" name="email" required />
+      </div>
+      <div class="perfil-usuario-info-item">
+        <label for="biografia"><strong>Biografía:</strong></label>
+        <textarea id="biografia" [(ngModel)]="usuario.biografia" name="biografia"></textarea>
+      </div>
+      <div class="perfil-usuario-info-item">
+        <label for="idiomas"><strong>Idiomas Hablados:</strong></label>
+        <input id="idiomas" [(ngModel)]="usuario.idiomasHablados" name="idiomas" />
+      </div>
+      <div class="perfil-usuario-info-item">
+        <label for="telefono"><strong>Teléfono:</strong></label>
+        <input id="telefono" type="tel" [(ngModel)]="usuario.telefono" name="telefono" />
+      </div>
+      <div class="perfil-usuario-actions">
+        <button type="submit" class="perfil-usuario-btn perfil-usuario-btn-primary">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+  
     
 
     

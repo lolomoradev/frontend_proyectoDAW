@@ -33,9 +33,9 @@ export class ActividadService {
   }
 
   // Actualizar una actividad
-  actualizarActividad(id: number, actividad: ActividadDTO): Observable<ActividadDTO> {
-    console.info(`Enviando solicitud para actualizar actividad con ID: ${id}`, actividad);
-    return this.http.put<ActividadDTO>(`${this.apiUrl}/actualizarActividad/${id}`, actividad);
+  actualizarActividad(actividad: ActividadDTO): Observable<ActividadDTO> {
+    console.log('Enviando actividad para actualización:', actividad);
+    return this.http.put<ActividadDTO>(`${this.apiUrl}/actualizarActividad/${actividad.idActividad}`, actividad);
   }
 
   // Borrar una actividad por ID

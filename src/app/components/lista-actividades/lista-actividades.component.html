@@ -5,7 +5,7 @@
     <!-- Formulario para Agregar o Editar Actividad (Solo para ofertantes y admins) -->
     <div *ngIf="userRole === 'ofertante' || userRole === 'admin'" class="agregar-actividad">
         <h2>{{ editando ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
-        <form (ngSubmit)="editando ? actualizarActividad() : agregarActividad()" #actividadForm="ngForm">
+        <form (ngSubmit)="editando ? actualizarActividad(actividadActual) : agregarActividad()" #actividadForm="ngForm">
             <!-- Campos del formulario -->
             <div class="form-group">
                 <label for="titulo">Título:</label>
