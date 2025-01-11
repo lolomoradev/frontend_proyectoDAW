@@ -1,10 +1,10 @@
 <!-- src/app/components/home/home.component.html -->
 <div class="home-container">
   <!-- Bienvenida personalizada -->
-  <h1>Bienvenid, {{ nombreUsuario }}</h1>
+  <h1>¡Bienvenid&#64;!</h1>
 
   <!-- Mostrar barra de búsqueda solo para demandantes -->
-  <div *ngIf="userRole === 'demandante'" class="busqueda-container">
+  <div *ngIf="userRole === 'demandante' || userRole === 'ambos'" class="busqueda-container">
     <h2>Buscar actividades</h2>
     <input
       type="text"
@@ -15,17 +15,23 @@
     />
   </div>
 
-  <!-- Mostrar actividades filtradas -->
-  <div *ngIf="actividadesFiltradas.length > 0" class="actividades-container">
-    <h2>Resultados de la búsqueda</h2>
-    <div *ngFor="let actividad of actividadesFiltradas" class="actividad-card">
-      <h3>{{ actividad.titulo }}</h3>
-      <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
-      <p><strong>Precio:</strong> {{ actividad.precio | currency }}</p>
-      <p><strong>Ubicación:</strong> {{ actividad.ubicacion }}</p>
-      <p><strong>Fecha:</strong> {{ actividad.fechaRealizacion | date }}</p>
-      <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
-    </div>
+<!-- Mostrar actividades filtradas -->
+<div *ngIf="actividadesFiltradas.length > 0" class="actividades-container">
+  <h2>Resultados de la búsqueda</h2>
+  <div *ngFor="let actividad of actividadesFiltradas" class="actividad-card">
+    <h3>{{ actividad.titulo }}</h3>
+    <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
+    <p><strong>Precio:</strong> {{ actividad.precio | currency }}</p>
+    <p><strong>Ubicación:</strong> {{ actividad.ubicacion }}</p>
+    <p><strong>Fecha:</strong> {{ actividad.fechaRealizacion | date }}</p>
+    <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
   </div>
+</div>
+
+<!-- Mensaje en caso de no encontrar resultados -->
+<div *ngIf="actividadesFiltradas.length === 0 && busqueda.trim()">
+  <p>No se encontraron actividades para "{{ busqueda }}".</p>
+</div>
+
 
 </div>

@@ -30,9 +30,9 @@ export class HomeComponent implements OnInit {
 
   // Buscar actividades por título (solo para demandantes)
   buscarActividades() {
-    if (this.busqueda.trim() && this.userRole === 'demandante') {
+    if (this.busqueda.trim() && this.userRole === 'demandante' || this.userRole === 'ambos') {
       this.http
-        .get<any[]>(`http://localhost:8080/api/actividades?titulo=${this.busqueda}`)
+        .get<any[]>(`http://localhost:8080/api/actividadesPorTitulo?titulo=${this.busqueda}`)
         .subscribe(
           (data) => {
             this.actividadesFiltradas = data; // Asignar actividades filtradas
@@ -46,4 +46,5 @@ export class HomeComponent implements OnInit {
       this.actividadesFiltradas = []; // Limpiar actividades si no hay búsqueda
     }
   }
+
 }

@@ -7,8 +7,8 @@ import { ActividadDemandante } from '../models/actividadDemandanteModel';
   providedIn: 'root'
 })
 export class ActividadDemandanteService {
-  private apiUrl = 'http://localhost:8081/actividad-demandante'; // Cambia esto por la URL real de tu API
-
+  private apiUrl = 'http://localhost:8080/api/actividadDemandante'; 
+  
   constructor(private http: HttpClient) {}
 
   // Obtener todas las reservas de actividades
@@ -24,12 +24,19 @@ export class ActividadDemandanteService {
     return this.http.get<ActividadDemandante>(url);
   }
 
-  // Crear una nueva reserva de actividad
   crearActividadDemandante(actividadDemandante: ActividadDemandante): Observable<any> {
     const url = `${this.apiUrl}/reservar`;
-    console.log('ActividadDemandanteService: Enviando solicitud para crear reserva de actividad:', actividadDemandante, 'a la URL:', url);
+    console.log('Enviando solicitud de reserva a:', url);
+    console.debug('Datos de la reserva:', actividadDemandante);
+
+    if (!actividadDemandante.idActividad || !actividadDemandante.idDemandante || !actividadDemandante.fechaReserva) {
+        console.error('Datos incompletos para la reserva:', actividadDemandante);
+        return new Observable(observer => observer.error('Datos incompletos para la reserva.'));
+    }
+
     return this.http.post<any>(url, actividadDemandante);
-  }
+}
+
 
   // Eliminar una reserva de actividad por ID
   eliminarActividadDemandante(id: number): Observable<void> {

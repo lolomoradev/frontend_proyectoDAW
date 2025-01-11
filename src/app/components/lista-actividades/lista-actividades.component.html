@@ -1,9 +1,8 @@
 <!-- src/app/components/lista-actividades/lista-actividades.component.html -->
 
 <div class="container-listaActividades">
-
     <!-- Formulario para Agregar o Editar Actividad (Solo para ofertantes y admins) -->
-    <div *ngIf="userRole === 'ofertante' || userRole === 'admin'" class="agregar-actividad">
+    <div *ngIf="userRole === 'ofertante' || userRole === 'ambos'" class="agregar-actividad">
         <h2>{{ editando ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
         <form (ngSubmit)="editando ? actualizarActividad(actividadActual) : agregarActividad()" #actividadForm="ngForm">
             <!-- Campos del formulario -->
@@ -133,12 +132,19 @@
                 <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
             </div>
             <div class="tarjeta-footer">
-                <!-- Botones de Editar y Eliminar (solo para ofertantes y admins) -->
-                <button *ngIf="userRole === 'ofertante' || userRole === 'admin'" (click)="editarActividad(actividad)" class="btn btn-primary">Editar</button>
-                <button *ngIf="userRole === 'ofertante' || userRole === 'admin'" (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger">Eliminar</button>
+                <!-- Botones de Editar y Eliminar (solo si el usuario es el ofertante o ambos, y si la actividad le pertenece) -->
+                <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
+                        (click)="editarActividad(actividad)" class="btn btn-primary">Editar</button>
+                <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
+                        (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger">Eliminar</button>
                 
-                <!-- Botón de Reservar (solo para demandantes) -->
-                <button *ngIf="userRole === 'demandante'" (click)="reservarActividad(actividad.idActividad)" class="btn btn-success">Reservar</button>
+            <!-- Botón de Reservar (solo para demandantes y ambos, pero no para actividades creadas por el usuario "ambos") -->
+            <button *ngIf="(userRole === 'demandante' || (userRole === 'ambos' && actividad.idOfertante !== idOfertanteActual))" 
+                    (click)="reservarActividad(actividad.idActividad)" 
+                    class="btn btn-success">
+            Reservar
+            </button>
+
             </div>
         </div>
     </div>

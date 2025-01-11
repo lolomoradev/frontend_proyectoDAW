@@ -7,8 +7,9 @@ import { ActividadDTO } from '../../models/actividadDTO';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
-import { ActividadDemandanteService } from '../../services/actividad-demandante-service.service';
+import { ActividadDemandanteService } from '../../services/actividad-demandante.service';
 import { ActividadDemandante } from '../../models/actividadDemandanteModel';
+import { DemandanteService } from '../../services/demandante.service';
 
 @Component({
   selector: 'app-lista-actividades',
@@ -50,7 +51,8 @@ export class ListaActividadesComponent implements OnInit {
     private actividadService: ActividadService,
     private loginService: LoginService,
     private actividadDemandanteService: ActividadDemandanteService,
-    private usuarioService: UsuarioService // Inyecta UsuarioService
+    private usuarioService: UsuarioService,
+    private demandanteService: DemandanteService
   ) {}
 
   ngOnInit() {
@@ -97,16 +99,32 @@ export class ListaActividadesComponent implements OnInit {
 
   cargarActividades() {
     console.info("Cargando actividades desde el servicio");
-    
+  
     this.actividadService.getActividades().subscribe(data => {
       if (this.userRole === 'ofertante' && this.idOfertanteActual) {
         // Filtrar actividades para mostrar solo las creadas por el ofertante actual
         this.actividades = data.filter(actividad => actividad.idOfertante === this.idOfertanteActual);
         console.debug("Actividades cargadas para el ofertante actual: ", this.actividades);
-      } else if (this.userRole === 'demandante' || this.userRole === 'admin') {
-        // Mostrar todas las actividades para demandantes y administradores
-        this.actividades = data;
-        console.debug("Actividades cargadas para demandante/admin: ", this.actividades);
+      } else if (this.userRole === 'demandante' || this.userRole === 'ambos') {
+        // Mostrar todas las actividades para demandantes y ambos
+        this.actividades = [...data]; // Usar spread operator para crear una copia del array original
+  
+        if (this.userRole === 'ambos' && this.idOfertanteActual) {
+          // Si el rol es "ambos", también debe ver las actividades que ha creado
+          const actividadesDelOfertante = data.filter(actividad => actividad.idOfertante === this.idOfertanteActual);
+  
+          // Verificación manual para evitar duplicados
+          actividadesDelOfertante.forEach(actividad => {
+            const existeActividad = this.actividades.some(existingActividad => existingActividad.idActividad === actividad.idActividad);
+            if (!existeActividad) {
+              this.actividades.push(actividad);
+            }
+          });
+  
+          console.debug("Actividades cargadas para ambos (incluyendo propias): ", this.actividades);
+        }
+  
+        console.debug("Actividades cargadas para demandante/ambos: ", this.actividades);
       } else {
         console.warn("Rol desconocido o sin permisos para cargar actividades.");
         this.actividades = [];
@@ -118,29 +136,27 @@ export class ListaActividadesComponent implements OnInit {
   }
   
   
-  
 
   agregarActividad() {
     console.info("Intentando agregar una nueva actividad");
-    // Obtener el ID de usuario actual
     const idUsuario = this.loginService.getUserId();
     if (!idUsuario) {
       console.warn("No se pudo obtener el ID de usuario actual");
       alert('No se pudo obtener tu ID de usuario.');
       return;
     }
-
-    console.debug("ID de usuario obtenido: ", idUsuario);
-
-    // Obtener el id_ofertante correspondiente al id_usuario
+  
     this.usuarioService.getUsuarioById(idUsuario).subscribe(usuario => {
       if (usuario && usuario.idOfertante) {
         this.actividadActual.idOfertante = usuario.idOfertante;
         console.debug("Asignado idOfertante: ", usuario.idOfertante);
-
-        console.debug("Enviando actividad para agregar: ", this.actividadActual);
+  
         this.actividadService.agregarActividad(this.actividadActual).subscribe(actividad => {
-          this.actividades.push(actividad);
+          // Verificación manual para evitar agregar duplicados
+          const existeActividad = this.actividades.some(existingActividad => existingActividad.idActividad === actividad.idActividad);
+          if (!existeActividad) {
+            this.actividades.push(actividad);
+          }
           console.info("Actividad agregada exitosamente: ", actividad);
           this.resetFormulario();
           alert('Actividad agregada exitosamente.');
@@ -160,14 +176,28 @@ export class ListaActividadesComponent implements OnInit {
 
   editarActividad(actividad: ActividadDTO) {
     console.info("Cargando datos de actividad para editar:", actividad);
+    
+    // Solo permitir edición si el usuario es el creador de la actividad
+    if (this.userRole === 'ambos' && actividad.idOfertante !== this.idOfertanteActual) {
+        console.warn("No puedes editar esta actividad porque no la creaste.");
+        alert('No puedes editar esta actividad porque no la creaste.');
+        return;
+    }
+
     this.actividadActual = { ...actividad }; // Copiar los datos de la actividad seleccionada a actividadActual
     this.editando = true; // Cambiar el estado de edición a verdadero
-  }
-  
+}
 
-  actualizarActividad(actividadDTO: ActividadDTO): void {
-    if (this.userRole === 'ofertante' || this.userRole === 'admin') {
-        if (this.editando && actividadDTO) {
+actualizarActividad(actividadDTO: ActividadDTO): void {
+    if (this.userRole === 'ofertante' || this.userRole === 'ambos') {
+        if (actividadDTO) {
+            // Solo permitir actualización si el usuario es el creador de la actividad
+            if (this.userRole === 'ambos' && actividadDTO.idOfertante !== this.idOfertanteActual) {
+                console.warn("No tienes permisos para actualizar esta actividad.");
+                alert('No puedes actualizar esta actividad porque no la creaste.');
+                return;
+            }
+
             console.info("Actualizando actividad con ID: ", actividadDTO.idActividad);
             console.log('Actividad a enviar:', actividadDTO); 
 
@@ -177,7 +207,6 @@ export class ListaActividadesComponent implements OnInit {
                     if (index !== -1) {
                         this.actividades[index] = actividad; // Actualizar la actividad en la lista
                         console.log('Actividad actualizada:', actividad); 
-
                     }
                     this.resetFormulario(); // Restablecer el formulario después de la actualización
                 },
@@ -192,31 +221,42 @@ export class ListaActividadesComponent implements OnInit {
     }
 }
 
-
-
-  eliminarActividad(id: number) {
+eliminarActividad(id: number) {
     console.info("Intentando eliminar actividad con ID: ", id);
-    if (this.userRole === 'ofertante' || this.userRole === 'admin') {
-      if (confirm('¿Estás seguro de que deseas eliminar esta actividad?')) {
-        this.actividadService.borrarActividad(id).subscribe(() => {
-          this.actividades = this.actividades.filter(a => a.idActividad !== id);
-          console.debug(`Actividad con ID: ${id} eliminada de la lista`);
-          alert('Actividad eliminada exitosamente.');
-        }, error => {
-          console.error('Error al eliminar actividad:', error);
-          alert('Hubo un error al eliminar la actividad. Intenta nuevamente.');
-        });
-      }
+    
+    // Comprobar si el usuario es el creador de la actividad
+    const actividad = this.actividades.find(a => a.idActividad === id);
+    if (actividad && (this.userRole === 'ofertante' || this.userRole === 'ambos')) {
+        if (this.userRole === 'ambos' && actividad.idOfertante !== this.idOfertanteActual) {
+            console.warn("No puedes eliminar esta actividad porque no la creaste.");
+            alert('No puedes eliminar esta actividad porque no la creaste.');
+            return;
+        }
+        
+        if (confirm('¿Estás seguro de que deseas eliminar esta actividad?')) {
+            this.actividadService.borrarActividad(id).subscribe(() => {
+                this.actividades = this.actividades.filter(a => a.idActividad !== id);
+                console.debug(`Actividad con ID: ${id} eliminada de la lista`);
+                alert('Actividad eliminada exitosamente.');
+            }, error => {
+                console.error('Error al eliminar actividad:', error);
+                alert('Hubo un error al eliminar la actividad. Intenta nuevamente.');
+            });
+        }
     } else {
-      console.warn("Usuario sin permisos para eliminar actividades");
-      alert('No tienes permisos para eliminar actividades.');
+        console.warn("Usuario sin permisos para eliminar actividades");
+        alert('No tienes permisos para eliminar actividades.');
     }
-  }
+}
 
-  reservarActividad(id: number) {
-    console.info("Intentando reservar actividad con ID: ", id);
-    if (this.userRole === 'demandante') {
-      const idDemandante = this.getIdDemandanteActual();
+async reservarActividad(id: number) {
+  console.info("Intentando reservar actividad con ID: ", id);
+  console.info("userRole.this", this.userRole);
+
+  if (this.userRole === 'demandante') {
+    try {
+      const idDemandante = await this.getIdDemandanteActual(); // Espera el resultado de la promesa
+
       if (!idDemandante) {
         console.warn("No se pudo obtener el ID de demandante");
         alert('No se pudo obtener tu ID de demandante. Intenta nuevamente.');
@@ -225,9 +265,10 @@ export class ListaActividadesComponent implements OnInit {
 
       const actividadDemandante: ActividadDemandante = {
         idActividad: id,
-        idDemandante: idDemandante,
+        idDemandante: idDemandante, // Ahora idDemandante es un número
         fechaReserva: new Date()
       };
+
       console.debug("Enviando reserva de actividad: ", actividadDemandante);
 
       this.actividadDemandanteService.crearActividadDemandante(actividadDemandante).subscribe({
@@ -235,23 +276,43 @@ export class ListaActividadesComponent implements OnInit {
           console.info(`Actividad reservada exitosamente para el ID de demandante: ${idDemandante}`);
           alert('Actividad reservada exitosamente.');
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error al reservar la actividad', error);
           alert('Hubo un error al reservar la actividad. Intenta nuevamente.');
         }
       });
-    } else {
-      console.warn("Usuario sin permisos para reservar actividades");
-      alert('Solo los demandantes pueden reservar actividades.');
+    } catch (error) {
+      console.error("Error al obtener el ID de demandante:", error);
+      alert('Hubo un error al obtener tu ID de demandante. Intenta nuevamente.');
+    }
+  } else {
+    console.warn("Usuario sin permisos para reservar actividades");
+    alert('Solo los demandantes pueden reservar actividades.');
+  }
+}
+
+
+getIdDemandanteActual(): Promise<number | null> {
+  const currentUser = localStorage.getItem('currentUser');
+  
+  if (currentUser) {
+    const user = JSON.parse(currentUser);
+    const userId = user.userId;
+
+    if (userId) {
+      return this.demandanteService.getIdDemandanteByUserId(userId).toPromise()
+        .then((idDemandante) => {
+          // Si no se encuentra el idDemandante, devolvemos null
+          return idDemandante !== undefined ? idDemandante : null;
+        });
     }
   }
 
-  getIdDemandanteActual(): number | null {
-    console.debug("Obteniendo ID de demandante actual");
-    const id = localStorage.getItem('userId');
-    console.debug("ID de demandante obtenido: ", id);
-    return id ? parseInt(id, 10) : null;
-  }
+  return Promise.resolve(null);
+}
+
+
+  
 
   resetFormulario() {
     console.debug("Reiniciando formulario de actividad");
