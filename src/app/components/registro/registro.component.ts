@@ -108,6 +108,10 @@ export class RegistroComponent {
       }
     });
   }
+  
+  onIdiomasChange(){
+    //Gestionar esto
+  }
 
   onRoleChange() {
     console.log('Rol seleccionado:', this.usuario.rol);
