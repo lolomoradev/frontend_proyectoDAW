@@ -1,5 +1,3 @@
-// src/app/components/perfil-usuario/perfil-usuario.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { HttpClient } from '@angular/common/http';
@@ -15,9 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./perfil-usuario.component.css']
 })
 export class PerfilUsuarioComponent implements OnInit {
-  usuario: any = {}; // Objeto para almacenar la información del usuario
-  loading: boolean = true; // Variable para mostrar el estado de carga
-  mostrarFormulario: boolean = false; // Controla la visibilidad del formulario de edición
+  usuario: any = {}; 
+  loading: boolean = true;
+  mostrarFormulario: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -29,25 +27,23 @@ export class PerfilUsuarioComponent implements OnInit {
     this.cargarPerfil();
   }
 
-  // Método para cargar el perfil del usuario
   cargarPerfil() {
-    const userId = this.loginService.getUserId(); // Obtener el ID del usuario
-
+    const userId = this.loginService.getUserId(); 
     if (userId) {
       this.http.get<any>(`http://localhost:8080/api/usuarios/${userId}`)
         .subscribe(
           (data) => {
-            this.usuario = data; // Asignar los datos al objeto usuario
+            this.usuario = data;
             this.loading = false;
           },
           (error) => {
             console.error('Error al obtener el perfil del usuario', error);
             this.loading = false;
-            this.router.navigate(['/login']); // Si no se obtiene el perfil, redirige al login
+            this.router.navigate(['/login']); 
           }
         );
     } else {
-      this.router.navigate(['/login']); // Si no hay ID de usuario, redirige al login
+      this.router.navigate(['/login']); 
     }
   }
 
@@ -100,15 +96,15 @@ export class PerfilUsuarioComponent implements OnInit {
 
   eliminarCuenta() {
     if (confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-      const userId = this.loginService.getUserId(); // Obtener el ID del usuario
+      const userId = this.loginService.getUserId();
   
       if (userId) {
         this.http.delete(`http://localhost:8080/api/borrar/${userId}`)
           .subscribe(
             () => {
               alert('Cuenta eliminada con éxito.');
-              this.loginService.logout(); // Cierra sesión
-              this.router.navigate(['/login']); // Redirige al login
+              this.loginService.logout();
+              this.router.navigate(['/login']);
             },
             (error) => {
               console.error('Error al eliminar la cuenta del usuario', error);

@@ -1,4 +1,3 @@
-// src/app/components/login/login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +9,6 @@ import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  // Eliminamos HttpClientModule de los imports
   imports: [FormsModule, CommonModule, InfoSectionLoginComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -18,8 +16,7 @@ import { LoginService } from '../../services/login.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  errorMessage: string = '';  // Para mostrar errores de login
-
+  errorMessage: string = '';
   constructor(
     private loginService: LoginService,
     private router: Router
@@ -28,20 +25,20 @@ export class LoginComponent {
   login() {
     console.log('Enviando credenciales:', { username: this.username, password: this.password });
     
-    // Llamamos al servicio de login
+
     this.loginService.login(this.username, this.password)
       .subscribe({
         next: (response) => {
           console.log('Respuesta del login:', response);
           
-          // Verificamos si el backend devuelve un token y un userId
+
           if (response && response.token && response.userId) {
             console.log('Token recibido:', response.token);
             console.log('User ID recibido:', response.userId);
-            // Opcional: hacer cualquier otra acción con el token y el userId
+
           }
           
-          // Redirigimos al usuario a la página de inicio
+         
           this.router.navigate(['/home']);
         },
         error: (error) => {

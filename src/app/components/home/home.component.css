@@ -1,6 +1,3 @@
-/* src/app/components/home/home.component.css */
-
-/* Contenedor principal */
 .home-container {
   max-width: 800px;
   margin: 0 auto;
@@ -88,4 +85,73 @@
   font-size: 1rem;
   color: #888;
   margin-top: 20px;
+}
+
+
+/* Estilos para el contenedor de reservas */
+.reservas-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f4f4f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de la lista de reservas */
+.reservas-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilo para cada tarjeta de reserva */
+.reserva-card {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover sobre cada reserva */
+.reserva-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos de cada reserva */
+.reserva-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+/* Detalles de cada reserva */
+.reserva-card p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* Destacar la fecha de la reserva */
+.reserva-card p strong {
+  color: #007bff;
+}
+
+/* Mensaje en caso de no tener reservas */
+.reservas-container div p {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Ajustes de margenes y espacio */
+.reservas-container .reserva-card:last-child {
+  margin-bottom: 0;
 }

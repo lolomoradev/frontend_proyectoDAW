@@ -1,5 +1,3 @@
-// src/app/components/lista-actividades/lista-actividades.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { ActividadService } from '../../services/actividad.service';
 import { UsuarioService } from '../../services/usuario.service'; // Importa UsuarioService
@@ -44,7 +42,6 @@ export class ListaActividadesComponent implements OnInit {
 
   dificultades = ['Muy Fácil', 'Fácil', 'Intermedio', 'Difícil', 'Muy Difícil'];
 
-  // Variable para almacenar el rol del usuario
   userRole: string | null = null;
 
   constructor(
@@ -64,11 +61,11 @@ export class ListaActividadesComponent implements OnInit {
 
   obtenerRolUsuario() {
     console.debug("Obteniendo rol del usuario actual");
-    // Obtener el rol actual
+
     this.userRole = this.loginService.getUserRole();
     console.debug("Rol del usuario: ", this.userRole);
 
-    // Suscribirse a cambios en el rol, si el rol puede cambiar dinámicamente
+    // Suscribirse a cambios en el rol, si el rol puede cambiar dinámicamente COMPROBAR SI SE PUEDE BORRAR
     this.loginService.currentUser.subscribe(user => {
       this.userRole = user.role;
       console.debug("Rol del usuario actualizado: ", this.userRole);
@@ -102,18 +99,18 @@ export class ListaActividadesComponent implements OnInit {
   
     this.actividadService.getActividades().subscribe(data => {
       if (this.userRole === 'ofertante' && this.idOfertanteActual) {
-        // Filtrar actividades para mostrar solo las creadas por el ofertante actual
+        // Filtra las actividades para mostrar solo las creadas por el ofertante actual
         this.actividades = data.filter(actividad => actividad.idOfertante === this.idOfertanteActual);
         console.debug("Actividades cargadas para el ofertante actual: ", this.actividades);
       } else if (this.userRole === 'demandante' || this.userRole === 'ambos') {
         // Mostrar todas las actividades para demandantes y ambos
-        this.actividades = [...data]; // Usar spread operator para crear una copia del array original
+        this.actividades = [...data];  
   
         if (this.userRole === 'ambos' && this.idOfertanteActual) {
-          // Si el rol es "ambos", también debe ver las actividades que ha creado
+          //Si el rol es ambos tambien puede ver las actividades creadas por si mismo
           const actividadesDelOfertante = data.filter(actividad => actividad.idOfertante === this.idOfertanteActual);
   
-          // Verificación manual para evitar duplicados
+          //Verifica para que no se dupliquen las actividades
           actividadesDelOfertante.forEach(actividad => {
             const existeActividad = this.actividades.some(existingActividad => existingActividad.idActividad === actividad.idActividad);
             if (!existeActividad) {
@@ -152,7 +149,7 @@ export class ListaActividadesComponent implements OnInit {
         console.debug("Asignado idOfertante: ", usuario.idOfertante);
   
         this.actividadService.agregarActividad(this.actividadActual).subscribe(actividad => {
-          // Verificación manual para evitar agregar duplicados
+          //Verifica para que no se dupliquen las actividades
           const existeActividad = this.actividades.some(existingActividad => existingActividad.idActividad === actividad.idActividad);
           if (!existeActividad) {
             this.actividades.push(actividad);
@@ -177,21 +174,21 @@ export class ListaActividadesComponent implements OnInit {
   editarActividad(actividad: ActividadDTO) {
     console.info("Cargando datos de actividad para editar:", actividad);
     
-    // Solo permitir edición si el usuario es el creador de la actividad
+    //Si el usuario ha creado la actividad permite la edicion, si no no
     if (this.userRole === 'ambos' && actividad.idOfertante !== this.idOfertanteActual) {
         console.warn("No puedes editar esta actividad porque no la creaste.");
         alert('No puedes editar esta actividad porque no la creaste.');
         return;
     }
 
-    this.actividadActual = { ...actividad }; // Copiar los datos de la actividad seleccionada a actividadActual
-    this.editando = true; // Cambiar el estado de edición a verdadero
+    this.actividadActual = { ...actividad };
+    this.editando = true;
 }
 
 actualizarActividad(actividadDTO: ActividadDTO): void {
     if (this.userRole === 'ofertante' || this.userRole === 'ambos') {
         if (actividadDTO) {
-            // Solo permitir actualización si el usuario es el creador de la actividad
+            //Permite la actualizacion de la actividad solo si el usuario es el que la ha creado
             if (this.userRole === 'ambos' && actividadDTO.idOfertante !== this.idOfertanteActual) {
                 console.warn("No tienes permisos para actualizar esta actividad.");
                 alert('No puedes actualizar esta actividad porque no la creaste.');
@@ -205,10 +202,10 @@ actualizarActividad(actividadDTO: ActividadDTO): void {
                 (actividad: ActividadDTO) => {
                     const index = this.actividades.findIndex(a => a.idActividad === actividad.idActividad);
                     if (index !== -1) {
-                        this.actividades[index] = actividad; // Actualizar la actividad en la lista
+                        this.actividades[index] = actividad;
                         console.log('Actividad actualizada:', actividad); 
                     }
-                    this.resetFormulario(); // Restablecer el formulario después de la actualización
+                    this.resetFormulario();
                 },
                 error => {
                     console.error('Error al actualizar actividad:', error);
@@ -224,7 +221,7 @@ actualizarActividad(actividadDTO: ActividadDTO): void {
 eliminarActividad(id: number) {
     console.info("Intentando eliminar actividad con ID: ", id);
     
-    // Comprobar si el usuario es el creador de la actividad
+    //Verifica si el usuario ha creado la actividad
     const actividad = this.actividades.find(a => a.idActividad === id);
     if (actividad && (this.userRole === 'ofertante' || this.userRole === 'ambos')) {
         if (this.userRole === 'ambos' && actividad.idOfertante !== this.idOfertanteActual) {
@@ -251,22 +248,30 @@ eliminarActividad(id: number) {
 
 async reservarActividad(id: number) {
   console.info("Intentando reservar actividad con ID: ", id);
-  console.info("userRole.this", this.userRole);
 
   if (this.userRole === 'demandante') {
     try {
-      const idDemandante = await this.getIdDemandanteActual(); // Espera el resultado de la promesa
-
+      const idDemandante = await this.getIdDemandanteActual();
       if (!idDemandante) {
         console.warn("No se pudo obtener el ID de demandante");
         alert('No se pudo obtener tu ID de demandante. Intenta nuevamente.');
         return;
       }
 
+      //Buscar la actividad segun el id de la actividad
+      const actividad = this.actividades.find(a => a.idActividad === id);
+      if (!actividad) {
+        console.warn("No se encontró la actividad con ID:", id);
+        alert('No se pudo encontrar la actividad para reservar.');
+        return;
+      }
+
       const actividadDemandante: ActividadDemandante = {
         idActividad: id,
-        idDemandante: idDemandante, // Ahora idDemandante es un número
-        fechaReserva: new Date()
+        idDemandante: idDemandante,
+        fechaReserva: new Date(),
+        tituloActividad: actividad.titulo,
+        fechaRealizacion: actividad.fechaRealizacion || new Date()
       };
 
       console.debug("Enviando reserva de actividad: ", actividadDemandante);
@@ -292,6 +297,7 @@ async reservarActividad(id: number) {
 }
 
 
+
 getIdDemandanteActual(): Promise<number | null> {
   const currentUser = localStorage.getItem('currentUser');
   
@@ -302,7 +308,6 @@ getIdDemandanteActual(): Promise<number | null> {
     if (userId) {
       return this.demandanteService.getIdDemandanteByUserId(userId).toPromise()
         .then((idDemandante) => {
-          // Si no se encuentra el idDemandante, devolvemos null
           return idDemandante !== undefined ? idDemandante : null;
         });
     }

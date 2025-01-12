@@ -1,5 +1,3 @@
-// src/app/dtos/usuario.dto.ts
-
 export class UsuarioDTO {
     idUsuario: number;
     nombre: string;
@@ -13,9 +11,8 @@ export class UsuarioDTO {
     idiomasHablados?:string;
     telefono?: string;
     rol: string;
-    idOfertante?: number; // Añade este campo si no está presente
+    idOfertante?: number;
 
-    // Constructor con valores por defecto
     constructor(
       idUsuario: number = 0,
       nombre: string = '',

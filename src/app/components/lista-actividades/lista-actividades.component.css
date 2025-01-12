@@ -1,6 +1,3 @@
-/* src/app/components/lista-actividades/lista-actividades.component.css */
-
-/* General */
 .container-listaActividades {
     max-width: 1200px;
     margin: 0 auto;
@@ -164,7 +161,7 @@ button[type="button"]:hover {
     background-color: #218838;
 }
 
-/* Responsive */
+/* Responsividad */
 @media (max-width: 768px) {
     .container-listaActividades {
         padding: 10px;

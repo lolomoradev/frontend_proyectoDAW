@@ -1,11 +1,9 @@
-<!-- src/app/components/lista-actividades/lista-actividades.component.html -->
-
 <div class="container-listaActividades">
-    <!-- Formulario para Agregar o Editar Actividad (Solo para ofertantes y admins) -->
+    <!-- Formulario para agregar o editar actividad -->
     <div *ngIf="userRole === 'ofertante' || userRole === 'ambos'" class="agregar-actividad">
         <h2>{{ editando ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
         <form (ngSubmit)="editando ? actualizarActividad(actividadActual) : agregarActividad()" #actividadForm="ngForm">
-            <!-- Campos del formulario -->
+
             <div class="form-group">
                 <label for="titulo">Título:</label>
                 <input id="titulo" type="text" [(ngModel)]="actividadActual.titulo" name="titulo" required />
@@ -132,13 +130,13 @@
                 <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
             </div>
             <div class="tarjeta-footer">
-                <!-- Botones de Editar y Eliminar (solo si el usuario es el ofertante o ambos, y si la actividad le pertenece) -->
+                <!-- Botones de editar y eliminar -->
                 <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
                         (click)="editarActividad(actividad)" class="btn btn-primary">Editar</button>
                 <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
                         (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger">Eliminar</button>
                 
-            <!-- Botón de Reservar (solo para demandantes y ambos, pero no para actividades creadas por el usuario "ambos") -->
+            <!-- Boton de reservar -->
             <button *ngIf="(userRole === 'demandante' || (userRole === 'ambos' && actividad.idOfertante !== idOfertanteActual))" 
                     (click)="reservarActividad(actividad.idActividad)" 
                     class="btn btn-success">

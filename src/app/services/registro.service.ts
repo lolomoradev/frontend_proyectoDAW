@@ -1,5 +1,3 @@
-// src/app/services/registro.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegistroDTO } from '../models/registroDTO';
@@ -10,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RegistroService {
 
-  private apiUrl = 'http://localhost:8080/api/registrar'; // Asegúrate de que esta URL es correcta
+  private apiUrl = 'http://localhost:8080/api/registrar'; 
 
   constructor(private http: HttpClient) { }
 

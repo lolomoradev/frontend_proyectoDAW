@@ -1,9 +1,22 @@
-<!-- src/app/components/home/home.component.html -->
 <div class="home-container">
-  <!-- Bienvenida personalizada -->
-  <h1>¡Bienvenid&#64;!</h1>
 
-  <!-- Mostrar barra de búsqueda solo para demandantes -->
+  <h1>¡Bienvenid&#64; {{ nombreUsuario }}!</h1>
+
+  <!-- Reservas de actividades -->
+  <div *ngIf="actividadesDemandantes.length > 0" class="reservas-container">
+    <h2>Mis Actividades Reservadas</h2>
+    <div *ngFor="let reserva of actividadesDemandantes" class="reserva-card">
+      <h3>{{ reserva.tituloActividad }}</h3>
+      <p><strong>Fecha de realización:</strong> {{ reserva.fechaRealizacion | date }}</p>
+    </div>
+  </div>
+
+  <!-- Mensaje si no hay reservas -->
+  <div *ngIf="actividadesDemandantes.length === 0">
+    <p>No tienes reservas activas.</p>
+  </div>
+
+  <!-- Barra de búsqueda solo para demandantes -->
   <div *ngIf="userRole === 'demandante' || userRole === 'ambos'" class="busqueda-container">
     <h2>Buscar actividades</h2>
     <input
@@ -15,23 +28,18 @@
     />
   </div>
 
-<!-- Mostrar actividades filtradas -->
-<div *ngIf="actividadesFiltradas.length > 0" class="actividades-container">
-  <h2>Resultados de la búsqueda</h2>
-  <div *ngFor="let actividad of actividadesFiltradas" class="actividad-card">
-    <h3>{{ actividad.titulo }}</h3>
-    <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
-    <p><strong>Precio:</strong> {{ actividad.precio | currency }}</p>
-    <p><strong>Ubicación:</strong> {{ actividad.ubicacion }}</p>
-    <p><strong>Fecha:</strong> {{ actividad.fechaRealizacion | date }}</p>
-    <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
+  <!-- Muestra actividades filtradas -->
+  <div *ngIf="actividadesFiltradas.length > 0" class="actividades-container">
+    <h2>Resultados de la búsqueda</h2>
+    <div *ngFor="let actividad of actividadesFiltradas" class="actividad-card">
+      <h3>{{ actividad.titulo }}</h3>
+      <p><strong>Fecha de realización:</strong> {{ actividad.fechaRealizacion | date }}</p>
+    </div>
   </div>
-</div>
 
-<!-- Mensaje en caso de no encontrar resultados -->
-<div *ngIf="actividadesFiltradas.length === 0 && busqueda.trim()">
-  <p>No se encontraron actividades para "{{ busqueda }}".</p>
-</div>
-
+  <!-- Mensaje en caso de no encontrar resultados -->
+  <div *ngIf="actividadesFiltradas.length === 0 && busqueda.trim()">
+    <p>No se encontraron actividades para "{{ busqueda }}".</p>
+  </div>
 
 </div>

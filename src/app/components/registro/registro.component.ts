@@ -1,5 +1,3 @@
-// src/app/components/registro/registro.component.ts
-
 import { Component, ViewChild } from '@angular/core';
 import { RegistroService } from '../../services/registro.service';
 import { Router } from '@angular/router';
@@ -31,7 +29,7 @@ export class RegistroComponent {
     rol: ''
   };
 
-  // Lista de idiomas disponibles
+
   idiomasDisponibles = [
     'Español', 'Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugués', 'Chino', 
     'Ruso', 'Japonés', 'Danés', 'Sueco', 'Ucraniano', 'Otro'
@@ -45,9 +43,7 @@ export class RegistroComponent {
 
   constructor(private registroService: RegistroService, private router: Router) {}
 
-  // Método de registro
   register() {
-    // Validar campos requeridos
     if (!this.usuario.nombre || !this.usuario.apellido1 || !this.usuario.email || !this.usuario.username || !this.usuario.password || !this.usuario.rol) {
       alert('Por favor, completa todos los campos obligatorios.');
       return;
@@ -63,7 +59,6 @@ export class RegistroComponent {
       return;
     }
 
-    // Crear el objeto RegistroDTO excluyendo idUsuario y fechaRegistro
     let registroDTO: RegistroDTO = {
       usuario: { 
         nombre: this.usuario.nombre,
@@ -77,7 +72,6 @@ export class RegistroComponent {
         telefono: this.usuario.telefono,
         rol: this.usuario.rol
       },
-      // Añadir ofertante o demandante según el rol
     };
 
     if (this.usuario.rol === 'ofertante' || this.usuario.rol === 'ambos') {
@@ -100,7 +94,7 @@ export class RegistroComponent {
 
     this.registroService.register(registroDTO).subscribe({
       next: () => {
-        this.router.navigate(['/login']);  // Redirigir al login después de registrarse
+        this.router.navigate(['/login']);  
       },
       error: (error) => {
         console.error('Error de registro', error);
@@ -115,11 +109,6 @@ export class RegistroComponent {
     });
   }
 
-  onIdiomasChange() {
-    // Ya manejado en register()
-  }
-
-  // Manejo del cambio de rol
   onRoleChange() {
     console.log('Rol seleccionado:', this.usuario.rol);
   }

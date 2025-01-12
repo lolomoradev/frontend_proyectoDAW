@@ -7,7 +7,7 @@ import { Demandante } from '../models/demandanteModel';
   providedIn: 'root'
 })
 export class DemandanteService {
-  private apiUrl = 'http://localhost:8080/api/demandantes';
+  private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
@@ -15,10 +15,9 @@ export class DemandanteService {
     return this.http.get<Demandante[]>(this.apiUrl);
   }
 
-  // Métodos específicos para demandantes
-  // Método para obtener el idDemandante a partir del userId
+  //Obtiene el iddemandante usando el id del usuario
   getIdDemandanteByUserId(userId: number): Observable<number> {
-      const url = `${this.apiUrl}/usuarios/${userId}/demandante`;
+      const url = `${this.apiUrl}/actividadDemandante/usuarios/${userId}/demandante`;
       console.log('DemandanteService: Obteniendo ID del demandante desde:', url);
       return this.http.get<number>(url);
   }

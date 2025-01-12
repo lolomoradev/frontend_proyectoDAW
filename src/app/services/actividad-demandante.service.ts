@@ -11,13 +11,11 @@ export class ActividadDemandanteService {
   
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las reservas de actividades
   getActividadDemandantes(): Observable<ActividadDemandante[]> {
     console.log('ActividadDemandanteService: Solicitando todas las reservas de actividades desde', this.apiUrl);
     return this.http.get<ActividadDemandante[]>(this.apiUrl);
   }
 
-  // Obtener una reserva de actividad por ID
   getActividadDemandante(id: number): Observable<ActividadDemandante> {
     const url = `${this.apiUrl}/${id}`;
     console.log(`ActividadDemandanteService: Solicitando reserva de actividad con ID ${id} desde`, url);
@@ -35,10 +33,10 @@ export class ActividadDemandanteService {
     }
 
     return this.http.post<any>(url, actividadDemandante);
-}
+  }
 
 
-  // Eliminar una reserva de actividad por ID
+  //Elimina una reserva
   eliminarActividadDemandante(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     console.log(`ActividadDemandanteService: Enviando solicitud para eliminar reserva de actividad con ID ${id} desde`, url);

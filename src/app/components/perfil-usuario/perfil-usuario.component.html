@@ -2,17 +2,12 @@
   <h2>Perfil de Usuario</h2>
   
   <div class="perfil-usuario-card">
-    <!-- Foto de perfil (opcional)
-    <div class="perfil-usuario-imagen">
-      <img src="assets/usuario.jpg" alt="Imagen de Perfil" class="img-fluid">
-    </div>
-     -->
 
      <div class="perfil-usuario-container">
       <h2>Perfil de Usuario</h2>
       
       <div class="perfil-usuario-card">
-        <!-- Información del usuario -->
+        <!-- Informacion del usuario -->
         <div class="perfil-usuario-info">
           <div class="perfil-usuario-info-item">
             <strong>Nombre:</strong> {{ usuario.nombre }} {{ usuario.apellido1 }} {{ usuario.apellido2 }}
@@ -44,13 +39,13 @@
         <button (click)="eliminarCuenta()" class="perfil-usuario-btn perfil-usuario-btn-danger">Eliminar Cuenta</button>
       </div>
     
-        <!-- Botón para mostrar/ocultar el formulario -->
+        <!-- Boton que oculta o muestra el usuario -->
         <div class="perfil-usuario-actions">
           <button (click)="mostrarFormulario = !mostrarFormulario" class="perfil-usuario-btn perfil-usuario-btn-primary">
             {{ mostrarFormulario ? 'Cancelar' : 'Editar Perfil' }}
           </button>
         </div>
-  <!-- Formulario para editar perfil (visible solo si mostrarFormulario es true) -->
+  <!-- Formulario para editar el perfil -->
   <div *ngIf="mostrarFormulario" class="perfil-usuario-editar">
     <form (ngSubmit)="editarPerfil()" #editarPerfilForm="ngForm">
       <div class="perfil-usuario-info-item">
@@ -87,14 +82,5 @@
     </form>
   </div>
   
-    
-
-    
-    <!-- Botones de acción 
-    <div class="perfil-usuario-actions">
-      <button (click)="editarPerfil()" class="perfil-usuario-btn perfil-usuario-btn-primary">Editar Perfil</button>
-      <button (click)="cambiarContraseña()" class="perfil-usuario-btn perfil-usuario-btn-secondary">Cambiar Contraseña</button>
-    </div>
-    -->
   </div>
 </div>

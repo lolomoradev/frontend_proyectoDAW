@@ -1,4 +1,3 @@
-// src/app/app.config.ts
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import {
@@ -21,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     },
     provideHttpClient(
       withInterceptorsFromDi(),
-      withFetch() // Habilita las APIs de fetch
+      withFetch()
     ),
     provideClientHydration(),
   ],

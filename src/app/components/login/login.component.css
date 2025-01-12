@@ -1,20 +1,20 @@
-/* Contenedor principal del formulario */
+
 .login-container {
   width: 100%;
-  max-width: 400px; /* Ancho máximo del formulario */
-  margin: 0 auto; /* Centra el formulario horizontalmente */
+  max-width: 400px; 
+  margin: 0 auto; 
   padding: 20px;
-  background-color: #f3f3f3; /* Fondo claro para el formulario */
+  background-color: #f3f3f3; 
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 /* Estilo para las etiquetas */
 .login-container label {
   font-weight: bold;
-  display: block; /* Fuerza que la etiqueta ocupe toda la línea */
-  margin-bottom: 8px; /* Espacio debajo de la etiqueta */
-  color: #333; /* Color oscuro para mejor contraste */
+  display: block;
+  margin-bottom: 8px; 
+  color: #333;
 }
 
 /* Estilo para los campos de entrada */
@@ -22,17 +22,17 @@
 .login-container input[type="password"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc; /* Borde ligero */
+  border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  margin-bottom: 20px; /* Espacio entre los campos */
+  margin-bottom: 20px; 
   box-sizing: border-box;
-  transition: border-color 0.3s ease; /* Transición para efecto de foco */
+  transition: border-color 0.3s ease;
 }
 
 .login-container input[type="text"]:focus,
 .login-container input[type="password"]:focus {
-  border-color: #007bff; /* Cambia el color del borde al enfocarse */
+  border-color: #007bff;
   outline: none;
 }
 
@@ -40,7 +40,7 @@
 .login-container button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #007bff; /* Azul para el botón */
+  background-color: #007bff; 
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -51,12 +51,12 @@
 }
 
 .login-container button[type="submit"]:hover {
-  background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+  background-color: #0056b3; 
 }
 
 /* Mensaje de error */
 .error-message {
-  color: #e74c3c; /* Rojo para errores */
+  color: #e74c3c; 
   font-weight: bold;
   margin-top: 10px;
   text-align: center;

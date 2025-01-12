@@ -15,5 +15,4 @@ export class OfertanteService {
     return this.http.get<Ofertante[]>(this.apiUrl);
   }
 
-  // Métodos específicos para ofertantes
 }

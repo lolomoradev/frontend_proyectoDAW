@@ -1,32 +1,30 @@
-/* Global styles or component-specific CSS */
-
 .formulario-registro-container{
   width: 600px;
-  margin: 0 auto; /* Centra el formulario horizontalmente */
+  margin: 0 auto;
 
 }
 
 .formulario-registro-input{
   padding:10px;
   margin: 8px;
-  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+  box-sizing: border-box;
 
 }
 
 .formulario-registro-boton{
   padding: 10px;
   margin: 30px;
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  background-color: #4CAF50; /* Un color de fondo para el botón */
+  cursor: pointer;
+  background-color: #4CAF50; 
   width: 40%;
   margin: 0 auto;
 }
 
 .formulario-registro-boton:hover {
-  background-color: #45a049; /* Color al pasar el cursor sobre el botón */
+  background-color: #45a049; 
 }
 
 .formulario-registro-formulario{
   display: flex;
-  flex-direction: column; /* Asegura que los elementos dentro del formulario se apilen verticalmente */
+  flex-direction: column;
 }
