@@ -1,5 +1,5 @@
-
-.login-container {
+/* Estilo para el contenedor */
+.login-contenedor {
   width: 100%;
   max-width: 400px; 
   margin: 0 auto; 
@@ -10,16 +10,16 @@
 }
 
 /* Estilo para las etiquetas */
-.login-container label {
+.login-contenedor label {
   font-weight: bold;
   display: block;
   margin-bottom: 8px; 
   color: #333;
 }
 
-/* Estilo para los campos de entrada */
-.login-container input[type="text"],
-.login-container input[type="password"] {
+/* Estilo para los input */
+.login-contenedor input[type="text"],
+.login-contenedor input[type="password"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -30,17 +30,17 @@
   transition: border-color 0.3s ease;
 }
 
-.login-container input[type="text"]:focus,
-.login-container input[type="password"]:focus {
-  border-color: #007bff;
+.login-contenedor input[type="text"]:focus,
+.login-contenedor input[type="password"]:focus {
+  border-color: #029932;
   outline: none;
 }
 
-/* Estilo para el botón */
-.login-container button[type="submit"] {
+/* Estilo para el boton */
+.login-contenedor button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #007bff; 
+  background-color: #16c625e3; 
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -50,11 +50,10 @@
   transition: background-color 0.3s ease;
 }
 
-.login-container button[type="submit"]:hover {
-  background-color: #0056b3; 
+.login-contenedor button[type="submit"]:hover {
+  background-color: #00b339; 
 }
 
-/* Mensaje de error */
 .error-message {
   color: #e74c3c; 
   font-weight: bold;

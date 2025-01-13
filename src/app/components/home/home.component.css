@@ -1,4 +1,4 @@
-.home-container {
+.home-contenedor {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
@@ -10,18 +10,18 @@
 }
 
 /* Título de bienvenida */
-.home-container h1 {
+.home-contenedor h1 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 20px;
 }
 
 /* Contenedor de búsqueda */
-.busqueda-container {
+.busqueda-contenedor {
   margin: 20px 0;
 }
 
-.busqueda-container h2 {
+.busqueda-contenedor h2 {
   font-size: 1.5rem;
   color: #555;
 }
@@ -37,24 +37,24 @@
 }
 
 .busqueda-input:focus {
-  border-color: #007bff;
+  border-color: #339628;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px rgba(19, 197, 96, 0.5);
 }
 
 /* Contenedor de actividades */
-.actividades-container {
+.actividades-contenedor {
   margin-top: 20px;
 }
 
-.actividades-container h2 {
+.actividades-contenedor h2 {
   font-size: 1.5rem;
   color: #555;
   margin-bottom: 15px;
 }
 
 /* Tarjetas de actividad */
-.actividad-card {
+.actividad-tarjeta {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -64,24 +64,24 @@
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
-.actividad-card h3 {
+.actividad-tarjeta h3 {
   font-size: 1.2rem;
   color: #333;
   margin-bottom: 10px;
 }
 
-.actividad-card p {
+.actividad-tarjeta p {
   margin: 5px 0;
   font-size: 0.95rem;
   color: #666;
 }
 
-.actividad-card p strong {
+.actividad-tarjeta p strong {
   color: #333;
 }
 
 /* Mensaje de sin resultados */
-.home-container p {
+.home-contenedor p {
   font-size: 1rem;
   color: #888;
   margin-top: 20px;
@@ -89,7 +89,7 @@
 
 
 /* Estilos para el contenedor de reservas */
-.reservas-container {
+.reservas-contenedor {
   margin: 20px;
   padding: 20px;
   background-color: #f4f4f9;
@@ -98,7 +98,7 @@
 }
 
 /* Título de la lista de reservas */
-.reservas-container h2 {
+.reservas-contenedor h2 {
   font-size: 24px;
   font-weight: bold;
   color: #333;
@@ -107,7 +107,7 @@
 }
 
 /* Estilo para cada tarjeta de reserva */
-.reserva-card {
+.reserva-tarjeta {
   background-color: #fff;
   padding: 20px;
   margin-bottom: 15px;
@@ -117,13 +117,13 @@
 }
 
 /* Hover sobre cada reserva */
-.reserva-card:hover {
+.reserva-tarjeta:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Títulos de cada reserva */
-.reserva-card h3 {
+.reserva-tarjeta h3 {
   font-size: 20px;
   font-weight: 600;
   color: #333;
@@ -132,19 +132,19 @@
 }
 
 /* Detalles de cada reserva */
-.reserva-card p {
+.reserva-tarjeta p {
   font-size: 16px;
   color: #555;
   margin: 5px 0;
 }
 
 /* Destacar la fecha de la reserva */
-.reserva-card p strong {
-  color: #007bff;
+.reserva-tarjeta p strong {
+  color: #339628;
 }
 
 /* Mensaje en caso de no tener reservas */
-.reservas-container div p {
+.reservas-contenedor div p {
   font-size: 18px;
   color: #777;
   text-align: center;
@@ -152,6 +152,6 @@
 }
 
 /* Ajustes de margenes y espacio */
-.reservas-container .reserva-card:last-child {
+.reservas-contenedor .reserva-tarjeta:last-child {
   margin-bottom: 0;
 }

@@ -1,4 +1,5 @@
-.perfil-usuario-container {
+/* Estilo para el contenedor */
+.perfil-usuario-contenedor {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
@@ -7,8 +8,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo para el título */
-.perfil-usuario-container h2 {
+/* Estilo para el titulo */
+.perfil-usuario-contenedor h2 {
     text-align: center;
     font-size: 2em;
     color: #333;
@@ -16,7 +17,7 @@
 }
 
 /* Estilo para la tarjeta del perfil */
-.perfil-usuario-card {
+.perfil-usuario-tarjeta {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,17 +50,17 @@
 
 .perfil-usuario-info-item strong {
     font-weight: bold;
-    color: #007bff;
+    color: #256520;
 }
 
 /* Estilo para los botones de acción */
-.perfil-usuario-actions {
+.perfil-usuario-acciones {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
 
-.perfil-usuario-btn {
+.perfil-usuario-boton {
     padding: 10px 20px;
     font-size: 1em;
     border-radius: 5px;
@@ -67,20 +68,20 @@
     cursor: pointer;
 }
 
-.perfil-usuario-btn-primary {
-    background-color: #007bff;
+.perfil-usuario-boton-primary {
+    background-color: #308c09;
     color: white;
 }
 
-.perfil-usuario-btn-primary:hover {
-    background-color: #0056b3;
+.perfil-usuario-boton-primary:hover {
+    background-color: #007f08;
 }
 
-.perfil-usuario-btn-secondary {
+.perfil-usuario-boton-secondary {
     background-color: #6c757d;
     color: white;
 }
 
-.perfil-usuario-btn-secondary:hover {
+.perfil-usuario-boton-secondary:hover {
     background-color: #5a6268;
 }

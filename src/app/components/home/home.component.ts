@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActividadDemandante } from '../../models/actividadDemandanteModel';
+import { ActividadDemandanteService } from '../../services/actividad-demandante.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: LoginService,
-    private http: HttpClient
+    private http: HttpClient,
+    private actividadDemandanteService: ActividadDemandanteService
   ) {}
 
   ngOnInit() {
@@ -51,29 +53,32 @@ export class HomeComponent implements OnInit {
     }
   }
   
-  obtenerReservasPorDemandante() {
-    const userId = this.authService.getUserId();
-    this.http.get<ActividadDemandante[]>(`http://localhost:8080/api/actividadDemandante/demandante/${userId}`)
-      .subscribe(
-        (data) => {
-          // Mapea los datos con las propiedades necesarias
-          this.actividadesDemandantes = data.map((reserva: any) => {
-            const actividadDemandante: ActividadDemandante = {
-              idActividad: reserva.actividad.idActividad,
-              idDemandante: reserva.demandante.idDemandante,
-              fechaReserva: reserva.fechaReserva,
-              tituloActividad: reserva.actividad.titulo, 
-              fechaRealizacion: reserva.actividad.fechaRealizacion || new Date() 
-            };
-            return actividadDemandante;
-          });
-          console.log('Reservas obtenidas:', this.actividadesDemandantes);
-        },
-        (error) => {
-          console.error('Error al obtener las reservas:', error);
-          this.actividadesDemandantes = []; 
-        }
-      );
-  }
+ obtenerReservasPorDemandante() {
+  const userId = this.authService.getUserId();
+  console.log('Obteniendo reservas para el usuario con ID:', userId);
+
+  // Llama al método del servicio
+  this.actividadDemandanteService.getActividadDemandantes()
+    .subscribe(
+      (data) => {
+        console.log('Datos recibidos del servicio:', data);
+        this.actividadesDemandantes = data.map((reserva: any) => {
+          const actividadDemandante: ActividadDemandante = {
+            idActividad: reserva.actividad.idActividad,
+            idDemandante: reserva.demandante.idDemandante,
+            fechaReserva: reserva.fechaReserva,
+            tituloActividad: reserva.actividad.titulo,
+            fechaRealizacion: reserva.actividad.fechaRealizacion || new Date()
+          };
+          return actividadDemandante;
+        });
+      },
+      (error) => {
+        console.error('Error al obtener las reservas:', error);
+        this.actividadesDemandantes = [];
+      }
+    );
+}
+
   
 }

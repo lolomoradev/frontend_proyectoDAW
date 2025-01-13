@@ -1,23 +1,20 @@
-<div class="home-container">
+<div class="home-contenedor">
 
-  <h1>¡Bienvenid&#64; {{ nombreUsuario }}!</h1>
+  <h1>¡Bienvenid&#64;</h1>
 
-  <!-- Reservas de actividades -->
-  <div *ngIf="actividadesDemandantes.length > 0" class="reservas-container">
+  <div *ngIf="actividadesDemandantes.length > 0" class="reservas-contenedor">
     <h2>Mis Actividades Reservadas</h2>
-    <div *ngFor="let reserva of actividadesDemandantes" class="reserva-card">
+    <div *ngFor="let reserva of actividadesDemandantes" class="reserva-tarjeta">
       <h3>{{ reserva.tituloActividad }}</h3>
       <p><strong>Fecha de realización:</strong> {{ reserva.fechaRealizacion | date }}</p>
     </div>
   </div>
 
-  <!-- Mensaje si no hay reservas -->
   <div *ngIf="actividadesDemandantes.length === 0">
     <p>No tienes reservas activas.</p>
   </div>
 
-  <!-- Barra de búsqueda solo para demandantes -->
-  <div *ngIf="userRole === 'demandante' || userRole === 'ambos'" class="busqueda-container">
+  <div *ngIf="userRole === 'demandante' || userRole === 'ambos'" class="busqueda-contenedor">
     <h2>Buscar actividades</h2>
     <input
       type="text"
@@ -28,16 +25,14 @@
     />
   </div>
 
-  <!-- Muestra actividades filtradas -->
-  <div *ngIf="actividadesFiltradas.length > 0" class="actividades-container">
+  <div *ngIf="actividadesFiltradas.length > 0" class="actividades-contenedor">
     <h2>Resultados de la búsqueda</h2>
-    <div *ngFor="let actividad of actividadesFiltradas" class="actividad-card">
+    <div *ngFor="let actividad of actividadesFiltradas" class="actividad-tarjeta">
       <h3>{{ actividad.titulo }}</h3>
       <p><strong>Fecha de realización:</strong> {{ actividad.fechaRealizacion | date }}</p>
     </div>
   </div>
 
-  <!-- Mensaje en caso de no encontrar resultados -->
   <div *ngIf="actividadesFiltradas.length === 0 && busqueda.trim()">
     <p>No se encontraron actividades para "{{ busqueda }}".</p>
   </div>

@@ -17,7 +17,7 @@ export class ActividadDemandanteService {
   }
 
   getActividadDemandante(id: number): Observable<ActividadDemandante> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/demandante/${id}`;
     console.log(`ActividadDemandanteService: Solicitando reserva de actividad con ID ${id} desde`, url);
     return this.http.get<ActividadDemandante>(url);
   }

@@ -1,10 +1,11 @@
+/* Estilo para la pagina */
 * {
   margin: 0;
   padding: 0; 
   box-sizing: border-box;
 }
 
-/* Estilos generales del menú de navegacion */
+/* Estilo del menu */
 nav {
   background-color: #000;
   height: 60px; 

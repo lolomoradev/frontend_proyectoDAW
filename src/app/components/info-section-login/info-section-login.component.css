@@ -1,17 +1,17 @@
-.infoSectionLogin {
+.infoSeccionLogin {
     display: flex;
     align-items: center;
     padding: 20px;
     height: 380px;
   }
-  .infoSectionLogin.reverse {
+  .infoSeccionLogin.reverse {
     flex-direction: row-reverse;
   }
-  .infoSectionLogin-image img {
+  .infoSeccionLogin-image img {
     width: 100%;
     max-width: 300px;
   }
-  .infoSectionLogin-text {
+  .infoSeccionLogin-text {
     padding: 20px;
   }
   

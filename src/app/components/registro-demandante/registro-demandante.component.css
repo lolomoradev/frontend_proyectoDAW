@@ -1,15 +1,15 @@
 /* Estilos para contenedor del formulario del demandante */
-.registro-demandante-container {
+.registro-demandante-contenedor {
     width: 100%;
     max-width: 28rem;
-    background-color: #2d3748;
+    background-color: #0c6d2f;
     border-radius: 0.5rem;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   }
   
   /* Título del formulario */
-  .registro-demandante-title {
+  .registro-demandante-titulo {
     font-size: 1.5rem; 
     font-weight: bold; 
     color: #e2e8f0; 
@@ -18,7 +18,7 @@
   
   /* Estilos para campos de entrada */
   .registro-demandante-input {
-    background-color: #4a5568;
+    background-color: #078d00d0;
     color: #e2e8f0;
     border: none;
     border-radius: 0.375rem; 
@@ -30,9 +30,9 @@
   
   /* Efecto de foco en los inputs */
   .registro-demandante-input:focus {
-    background-color: #718096;
+    background-color: #559c5d;
     outline: none;
-    box-shadow: 0 0 0 1px #4299e1; 
+    box-shadow: 0 0 0 1px #318851; 
   }
   
   /* Estilos para etiquetas */

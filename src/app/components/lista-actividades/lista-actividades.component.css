@@ -1,4 +1,5 @@
-.container-listaActividades {
+/* Contenedor de actividades */
+.contenedor-listaActividades {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -17,7 +18,7 @@
 
 .agregar-actividad h2 {
     margin-bottom: 15px;
-    color: #007bff;
+    color: #339628;
 }
 
 .form-group {
@@ -48,7 +49,7 @@
 }
 
 .form-actions button {
-    background-color: #007bff;
+    background-color: #14b222;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -58,7 +59,7 @@
 }
 
 .form-actions button:hover {
-    background-color: #0056b3;
+    background-color: #339628b2;
 }
 
 button[type="button"] {
@@ -70,7 +71,7 @@ button[type="button"]:hover {
 }
 
 /* Tarjetas */
-.tarjetas-container {
+.tarjetas-contenedor {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
@@ -86,7 +87,7 @@ button[type="button"]:hover {
 }
 
 .tarjeta-header {
-    background-color: #007bff;
+    background-color: #339628;
     color: white;
     padding: 10px;
     text-align: center;
@@ -125,7 +126,7 @@ button[type="button"]:hover {
     border-top: 1px solid #ddd;
 }
 
-.tarjeta-footer .btn {
+.tarjeta-footer .boton {
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 4px;
@@ -134,40 +135,40 @@ button[type="button"]:hover {
     transition: background-color 0.3s ease;
 }
 
-.btn-primary {
-    background-color: #007bff;
+.boton-primary {
+    background-color: #dce92e;
     color: white;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+.boton-primary:hover {
+    background-color: #e6ff06;
 }
 
-.btn-danger {
+.boton-danger {
     background-color: #dc3545;
     color: white;
 }
 
-.btn-danger:hover {
+.boton-danger:hover {
     background-color: #c82333;
 }
 
-.btn-success {
+.boton-success {
     background-color: #28a745;
     color: white;
 }
 
-.btn-success:hover {
+.boton-success:hover {
     background-color: #218838;
 }
 
 /* Responsividad */
 @media (max-width: 768px) {
-    .container-listaActividades {
+    .contenedor-listaActividades {
         padding: 10px;
     }
 
-    .tarjetas-container {
+    .tarjetas-contenedor {
         grid-template-columns: 1fr;
     }
 }

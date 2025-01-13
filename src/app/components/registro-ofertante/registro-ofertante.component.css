@@ -1,14 +1,14 @@
-.registro-ofertante-container {
+.registro-ofertante-contenedor {
     width: 100%;
     max-width: 28rem;
-    background-color: #2d3748;
+    background-color: #4dcd54;
     border-radius: 0.5rem;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   /* Título del formulario */
-  .registro-ofertante-title {
+  .registro-ofertante-titulo {
     font-size: 1.5rem;
     font-weight: bold;
     color: #e2e8f0;
@@ -17,7 +17,7 @@
   
   /* Estilos para campos de entrada */
   .registro-ofertante-input {
-    background-color: #4a5568;
+    background-color: #8fe088;
     color: #e2e8f0;
     border: none; 
     border-radius: 0.375rem;
@@ -29,9 +29,9 @@
   
   /* Efecto de foco en los inputs */
   .registro-ofertante-input:focus {
-    background-color: #718096; 
+    background-color: #25d675; 
     outline: none; 
-    box-shadow: 0 0 0 1px #4299e1;
+    box-shadow: 0 0 0 1px #2ab25e;
   }
   
   /* Estilos para etiquetas */

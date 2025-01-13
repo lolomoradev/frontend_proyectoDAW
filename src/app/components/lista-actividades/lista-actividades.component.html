@@ -1,5 +1,4 @@
-<div class="container-listaActividades">
-    <!-- Formulario para agregar o editar actividad -->
+<div class="contenedor-listaActividades">
     <div *ngIf="userRole === 'ofertante' || userRole === 'ambos'" class="agregar-actividad">
         <h2>{{ editando ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
         <form (ngSubmit)="editando ? actualizarActividad(actividadActual) : agregarActividad()" #actividadForm="ngForm">
@@ -113,7 +112,7 @@
     </div>
 
     <!-- Contenedor de tarjetas -->
-    <div class="tarjetas-container">
+    <div class="tarjetas-contenedor">
         <div class="tarjeta" *ngFor="let actividad of actividades">
             <div class="tarjeta-header">
                 <h3>{{ actividad.titulo }}</h3>
@@ -132,14 +131,14 @@
             <div class="tarjeta-footer">
                 <!-- Botones de editar y eliminar -->
                 <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
-                        (click)="editarActividad(actividad)" class="btn btn-primary">Editar</button>
+                        (click)="editarActividad(actividad)" class="boton boton-primary">Editar</button>
                 <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
-                        (click)="eliminarActividad(actividad.idActividad)" class="btn btn-danger">Eliminar</button>
+                        (click)="eliminarActividad(actividad.idActividad)" class="boton boton-danger">Eliminar</button>
                 
             <!-- Boton de reservar -->
             <button *ngIf="(userRole === 'demandante' || (userRole === 'ambos' && actividad.idOfertante !== idOfertanteActual))" 
                     (click)="reservarActividad(actividad.idActividad)" 
-                    class="btn btn-success">
+                    class="boton boton-success">
             Reservar
             </button>
 
