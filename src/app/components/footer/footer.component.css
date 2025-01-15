@@ -49,7 +49,6 @@
     text-decoration: underline;
   }
   
-  /*Parte inferior */
   .footer-bottom {
     margin-top: 20px;
     font-size: 14px;
@@ -60,7 +59,7 @@
     margin: 0;
   }
   
-  /* Diseno responsivo */
+
   @media (max-width: 768px) {
     .footer-container {
       flex-direction: column;

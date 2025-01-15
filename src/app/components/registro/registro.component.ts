@@ -37,7 +37,6 @@ export class RegistroComponent {
 
   idiomasSeleccionados: string[] = [];
 
-  // Referencias a los componentes hijos
   @ViewChild(RegistroDemandanteComponent) registroDemandanteComponent!: RegistroDemandanteComponent;
   @ViewChild(RegistroOfertanteComponent) registroOfertanteComponent!: RegistroOfertanteComponent;
 
@@ -110,7 +109,6 @@ export class RegistroComponent {
   }
   
   onIdiomasChange(){
-    //Gestionar esto
   }
 
   onRoleChange() {

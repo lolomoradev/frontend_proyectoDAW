@@ -22,12 +22,12 @@ export class UsuarioService {
   }
 
   registrarUsuario(usuario: UsuarioDTO): Observable<UsuarioDTO> {
-    return this.http.post<UsuarioDTO>(`${this.apiUrl}/registrar`, usuario);  // Ruta en tu controlador para registrar
+    return this.http.post<UsuarioDTO>(`${this.apiUrl}/registrar`, usuario); 
   }
 
 
   actualizarUsuario(id: number, usuario: UsuarioDTO): Observable<UsuarioDTO> {
-    return this.http.put<UsuarioDTO>(`${this.apiUrl}/actualizar/${id}`, usuario);  // Ruta para actualizar usuario por ID
+    return this.http.put<UsuarioDTO>(`${this.apiUrl}/actualizar/${id}`, usuario);
   }
 
 
@@ -37,6 +37,6 @@ export class UsuarioService {
 
 
   borrarUsuario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/borrar/${id}`);  // Ruta para borrar usuario
+    return this.http.delete<void>(`${this.apiUrl}/borrar/${id}`);
   }
 }

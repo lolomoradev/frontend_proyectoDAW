@@ -33,8 +33,10 @@ export class ActividadService {
     return this.http.put<ActividadDTO>(`${this.apiUrl}/actualizarActividad/${actividad.idActividad}`, actividad);
   }
 
-  borrarActividad(id: number): Observable<void> {
-    console.info(`Enviando solicitud para borrar actividad con ID: ${id}`);
-    return this.http.delete<void>(`${this.apiUrl}/borrarActividad/${id}`);
+  borrarActividad(id: number): Observable<any> {
+    const url = `${this.apiUrl}/borrarActividad/${id}`;
+    console.log('Enviando solicitud para eliminar actividad a:', url);
+    return this.http.delete<any>(url); 
   }
+  
 }

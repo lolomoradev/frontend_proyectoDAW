@@ -2,15 +2,15 @@
 
   <h1>¡Bienvenid&#64;</h1>
 
-  <div *ngIf="actividadesDemandantes.length > 0" class="reservas-contenedor">
+  <div *ngIf="actividadesReservadas.length > 0" class="reservas-contenedor">
     <h2>Mis Actividades Reservadas</h2>
-    <div *ngFor="let reserva of actividadesDemandantes" class="reserva-tarjeta">
-      <h3>{{ reserva.tituloActividad }}</h3>
-      <p><strong>Fecha de realización:</strong> {{ reserva.fechaRealizacion | date }}</p>
+    <div *ngFor="let idActividad of actividadesReservadas" class="reserva-tarjeta">
+      <p><strong>ID Actividad:</strong> {{ idActividad }}</p>
+      <button (click)="eliminarReserva(idActividad)">Eliminar Reserva</button>
     </div>
   </div>
 
-  <div *ngIf="actividadesDemandantes.length === 0">
+  <div *ngIf="actividadesReservadas.length === 0">
     <p>No tienes reservas activas.</p>
   </div>
 

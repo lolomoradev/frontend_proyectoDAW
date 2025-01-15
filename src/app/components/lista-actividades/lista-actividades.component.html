@@ -111,12 +111,12 @@
         </form>
     </div>
 
-    <!-- Contenedor de tarjetas -->
+
     <div class="tarjetas-contenedor">
         <div class="tarjeta" *ngFor="let actividad of actividades">
             <div class="tarjeta-header">
                 <h3>{{ actividad.titulo }}</h3>
-                <p class="precio">{{ actividad.precio | currency }}</p>
+                <p class="precio">{{ actividad.precio }} €</p>
             </div>
             <div class="tarjeta-body">
                 <p><strong>Descripción:</strong> {{ actividad.descripcion }}</p>
@@ -129,13 +129,11 @@
                 <p><strong>Dificultad:</strong> {{ actividad.dificultad }}</p>
             </div>
             <div class="tarjeta-footer">
-                <!-- Botones de editar y eliminar -->
                 <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
                         (click)="editarActividad(actividad)" class="boton boton-primary">Editar</button>
                 <button *ngIf="(userRole === 'ofertante' || userRole === 'ambos') && actividad.idOfertante === idOfertanteActual" 
                         (click)="eliminarActividad(actividad.idActividad)" class="boton boton-danger">Eliminar</button>
                 
-            <!-- Boton de reservar -->
             <button *ngIf="(userRole === 'demandante' || (userRole === 'ambos' && actividad.idOfertante !== idOfertanteActual))" 
                     (click)="reservarActividad(actividad.idActividad)" 
                     class="boton boton-success">

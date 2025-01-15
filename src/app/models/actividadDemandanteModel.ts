@@ -4,5 +4,5 @@ export interface ActividadDemandante {
     fechaReserva: Date;
     tituloActividad: string;
     fechaRealizacion: Date | null;
-  }
+}
   

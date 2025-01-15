@@ -16,12 +16,12 @@ export class ActividadDemandanteService {
     return this.http.get<ActividadDemandante[]>(this.apiUrl);
   }
 
-  getActividadDemandante(id: number): Observable<ActividadDemandante> {
+  getActividadDemandante(id: number): Observable<ActividadDemandante[]> {
     const url = `${this.apiUrl}/demandante/${id}`;
-    console.log(`ActividadDemandanteService: Solicitando reserva de actividad con ID ${id} desde`, url);
-    return this.http.get<ActividadDemandante>(url);
+    console.log(`ActividadDemandanteService: Solicitando reservas de actividades para el demandante con ID ${id} desde`, url);
+    return this.http.get<ActividadDemandante[]>(url); 
   }
-
+  
   crearActividadDemandante(actividadDemandante: ActividadDemandante): Observable<any> {
     const url = `${this.apiUrl}/reservar`;
     console.log('Enviando solicitud de reserva a:', url);
@@ -35,11 +35,14 @@ export class ActividadDemandanteService {
     return this.http.post<any>(url, actividadDemandante);
   }
 
-
-  //Elimina una reserva
-  eliminarActividadDemandante(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    console.log(`ActividadDemandanteService: Enviando solicitud para eliminar reserva de actividad con ID ${id} desde`, url);
+  obtenerIdDemandantePorUsuario(idUsuario: number): Observable<number> {
+    const url = `${this.apiUrl}/usuarios/${idUsuario}/demandante`; 
+    return this.http.get<number>(url);
+  }
+  
+  eliminarActividadDemandante(idActividad: number, idDemandante: number): Observable<void> {
+    const url = `${this.apiUrl}/${idActividad}/${idDemandante}`;
+    console.log(`ActividadDemandanteService: Enviando solicitud para eliminar reserva de actividad con ID ${idActividad} y demandante con ID ${idDemandante} desde`, url);
     return this.http.delete<void>(url);
   }
 }

@@ -3,7 +3,6 @@
 
   <form class="formulario-registro-formulario" (ngSubmit)="register()">
     
-    <!-- Campos de Usuario -->
     <input
       id="nombre"
       placeholder="Nombre"
@@ -107,7 +106,6 @@
       <option value="ambos">Ambos</option>
     </select>
 
-    <!-- Componentes según el tipo de perfil -->
     <div *ngIf="usuario.rol === 'ofertante'">
       <app-registro-ofertante></app-registro-ofertante>
     </div>

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActividadDemandante } from '../../models/actividadDemandanteModel';
 import { ActividadDemandanteService } from '../../services/actividad-demandante.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +17,9 @@ import { ActividadDemandanteService } from '../../services/actividad-demandante.
 export class HomeComponent implements OnInit {
   userRole: string | null = null;
   nombreUsuario: string = '';
-  busqueda: string = '';
+  busqueda: string = ''; 
   actividadesFiltradas: any[] = [];
-  reservas: any[] = [];
-  actividadesDemandantes: ActividadDemandante[] = [];
+  actividadesReservadas: any[] = []; 
 
   constructor(
     private authService: LoginService,
@@ -35,50 +35,89 @@ export class HomeComponent implements OnInit {
       this.obtenerReservasPorDemandante();
     }
   }
+  
+
 
   buscarActividades() {
     if (this.busqueda.trim() && (this.userRole === 'demandante' || this.userRole === 'ambos')) {
-      this.http.get<any[]>(`http://localhost:8080/api/actividadesPorTitulo?titulo=${this.busqueda}`)
-        .subscribe(
-          (data) => {
-            this.actividadesFiltradas = data;
-          },
-          (error) => {
-            console.error('Error al buscar actividades:', error);
-            this.actividadesFiltradas = [];
-          }
-        );
+      this.http.get<any[]>(`http://localhost:8080/api/actividadesPorTitulo?titulo=${this.busqueda}`).subscribe(
+        (data) => {
+          this.actividadesFiltradas = data;
+        },
+        (error) => {
+          console.error('Error al buscar actividades:', error);
+          this.actividadesFiltradas = [];
+        }
+      );
     } else {
       this.actividadesFiltradas = [];
     }
   }
+
+  obtenerReservasPorDemandante() {
+    const userId = this.authService.getUserId(); // Obtener el ID de usuario desde el servicio de autenticación
+    console.log('Obteniendo reservas para el usuario con ID:', userId);
   
- obtenerReservasPorDemandante() {
-  const userId = this.authService.getUserId();
-  console.log('Obteniendo reservas para el usuario con ID:', userId);
-
-  // Llama al método del servicio
-  this.actividadDemandanteService.getActividadDemandantes()
-    .subscribe(
-      (data) => {
-        console.log('Datos recibidos del servicio:', data);
-        this.actividadesDemandantes = data.map((reserva: any) => {
-          const actividadDemandante: ActividadDemandante = {
-            idActividad: reserva.actividad.idActividad,
-            idDemandante: reserva.demandante.idDemandante,
-            fechaReserva: reserva.fechaReserva,
-            tituloActividad: reserva.actividad.titulo,
-            fechaRealizacion: reserva.actividad.fechaRealizacion || new Date()
-          };
-          return actividadDemandante;
-        });
-      },
-      (error) => {
-        console.error('Error al obtener las reservas:', error);
-        this.actividadesDemandantes = [];
-      }
-    );
-}
-
+    if (userId !== null) {
+      // Llamar al backend para obtener el idDemandante basado en el userId
+      this.http.get<number>(`http://localhost:8080/api/actividadDemandante/usuarios/${userId}/demandante`).subscribe(
+        (idDemandante) => {
+          console.log('ID de Demandante obtenido:', idDemandante);
+  
+          // Usar el idDemandante para obtener las reservas
+          this.actividadDemandanteService.getActividadDemandante(idDemandante).subscribe(
+            (data) => {
+              console.log('Datos recibidos del servicio:', data);
+              this.actividadesReservadas = data.map((reserva: any) => reserva.idActividad);
+            },
+            (error) => {
+              console.error('Error al obtener las reservas:', error);
+              this.actividadesReservadas = [];
+            }
+          );
+        },
+        (error) => {
+          console.error('Error al obtener el ID de Demandante:', error);
+        }
+      );
+    } else {
+      console.error('No se pudo obtener el ID de usuario. La recuperación de reservas no se puede realizar.');
+    }
+  }
+  
+  eliminarReserva(idActividad: number) {
+    const userId = this.authService.getUserId();  // Obtener el ID del usuario
+    if (userId !== null) {
+      this.actividadDemandanteService.obtenerIdDemandantePorUsuario(userId).subscribe(
+        (idDemandante: number) => {
+          console.log(`Eliminando la reserva con ID de actividad: ${idActividad} para el demandante con ID: ${idDemandante}`);
+          
+          this.actividadDemandanteService.eliminarActividadDemandante(idActividad, idDemandante).subscribe(
+            (response: any) => {  // Cambia a cualquier tipo que recibas de la respuesta
+              console.log('Reserva eliminada con éxito.');
+              this.actividadesReservadas = this.actividadesReservadas.filter(
+                (id) => id !== idActividad
+              );
+            },
+            (error: any) => {
+              // Asegúrate de capturar errores con el tipo adecuado
+              console.error('Error al eliminar la reserva:', error);
+              alert('Hubo un problema al intentar eliminar la reserva.');
+            }
+          );
+        },
+        (error: any) => {
+          console.error('No se pudo obtener el ID del demandante:', error);
+          alert('Hubo un problema al obtener los datos del demandante.');
+        }
+      );
+    } else {
+      console.error('No se pudo obtener el ID del usuario. La eliminación de la reserva no se puede realizar.');
+      alert('No se pudo obtener el ID del usuario. La eliminación de la reserva no se puede realizar.');
+    }
+  }
+  
+  
+  
   
 }

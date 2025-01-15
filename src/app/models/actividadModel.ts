@@ -19,5 +19,5 @@ export interface Actividad {
     politicaCancelacion?: string;
     materialNecesario?: string;
     idOfertante: number;
-  }
+ }
   

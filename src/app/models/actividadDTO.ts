@@ -1,26 +1,25 @@
 export class ActividadDTO {
-    idActividad: number;
-    titulo: string;
-    descripcion: string;
-    precio: number;
-    tipoPago: string;
-    tipoActividad: string;
-    edadRequerida: number;
-    estadoActividad: string;
-    puntoEncuentro: string;
-    minimoPersonas: number;
-    maximoPersonas: number;
-    fechaPublicacion: Date;  
-    fechaLimiteInscripcion: Date; 
-    fechaRealizacion: Date;
-    duracion: string;
-    ubicacion: string;
-    dificultad: string;
-    politicaCancelacion: string;
-    materialNecesario: string;
-    idOfertante: number;
+  idActividad: number;
+  titulo: string;
+  descripcion: string;
+  precio: number;
+  tipoPago: string;
+  tipoActividad: string;
+  edadRequerida: number;
+  estadoActividad: string;
+  puntoEncuentro: string;
+  minimoPersonas: number;
+  maximoPersonas: number;
+  fechaPublicacion: Date;  
+  fechaLimiteInscripcion: Date; 
+  fechaRealizacion: Date;
+  duracion: string;
+  ubicacion: string;
+  dificultad: string;
+  politicaCancelacion: string;
+  materialNecesario: string;
+  idOfertante: number;
   
-     // Constructor
   constructor(
     idActividad: number = 0,
     titulo: string = "",
@@ -64,5 +63,5 @@ export class ActividadDTO {
     this.materialNecesario = materialNecesario;
     this.idOfertante = idOfertante;
   }
-  }
+}
   

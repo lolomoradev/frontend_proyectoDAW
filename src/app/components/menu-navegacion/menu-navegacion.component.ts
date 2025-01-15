@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // Importa RouterModule
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu-navegacion',
@@ -16,12 +16,11 @@ export class MenuNavegacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.currentUser.subscribe(user => {
-      this.userRole = user?.role || null; // Si no hay usuario logueado, establece null
+      this.userRole = user?.role || null;
       console.log('Role del usuario:', this.userRole);
     });
   }
 
-  //Verifica si el usuario esta autenticado
   isAuthenticated(): boolean {
     return this.loginService.isAuthenticated();
   }

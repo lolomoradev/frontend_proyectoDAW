@@ -9,14 +9,13 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Título de bienvenida */
+
 .home-contenedor h1 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 20px;
 }
 
-/* Contenedor de búsqueda */
 .busqueda-contenedor {
   margin: 20px 0;
 }
@@ -42,7 +41,6 @@
   box-shadow: 0 0 5px rgba(19, 197, 96, 0.5);
 }
 
-/* Contenedor de actividades */
 .actividades-contenedor {
   margin-top: 20px;
 }
@@ -53,7 +51,6 @@
   margin-bottom: 15px;
 }
 
-/* Tarjetas de actividad */
 .actividad-tarjeta {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -80,7 +77,6 @@
   color: #333;
 }
 
-/* Mensaje de sin resultados */
 .home-contenedor p {
   font-size: 1rem;
   color: #888;
@@ -88,7 +84,6 @@
 }
 
 
-/* Estilos para el contenedor de reservas */
 .reservas-contenedor {
   margin: 20px;
   padding: 20px;
@@ -97,7 +92,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Título de la lista de reservas */
 .reservas-contenedor h2 {
   font-size: 24px;
   font-weight: bold;
@@ -106,7 +100,6 @@
   margin-bottom: 20px;
 }
 
-/* Estilo para cada tarjeta de reserva */
 .reserva-tarjeta {
   background-color: #fff;
   padding: 20px;
@@ -116,13 +109,11 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover sobre cada reserva */
 .reserva-tarjeta:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Títulos de cada reserva */
 .reserva-tarjeta h3 {
   font-size: 20px;
   font-weight: 600;
@@ -131,19 +122,16 @@
   margin-bottom: 10px;
 }
 
-/* Detalles de cada reserva */
 .reserva-tarjeta p {
   font-size: 16px;
   color: #555;
   margin: 5px 0;
 }
 
-/* Destacar la fecha de la reserva */
 .reserva-tarjeta p strong {
   color: #339628;
 }
 
-/* Mensaje en caso de no tener reservas */
 .reservas-contenedor div p {
   font-size: 18px;
   color: #777;
@@ -151,7 +139,6 @@
   margin-top: 20px;
 }
 
-/* Ajustes de margenes y espacio */
 .reservas-contenedor .reserva-tarjeta:last-child {
   margin-bottom: 0;
 }

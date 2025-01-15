@@ -4,5 +4,5 @@ export interface Demandante {
     telefonoEmergencia?: string;    
     edad?: number;                 
     saldo?: number;                 
-  }
+}
   

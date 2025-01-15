@@ -11,5 +11,5 @@ export interface Usuario {
     idiomasHablados?: string;
     telefono?: string;
     rol: string;
-  }
+}
   

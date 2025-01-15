@@ -56,11 +56,9 @@ export class PerfilUsuarioComponent implements OnInit {
     const token = this.loginService.getToken();
     if (!token) {
       console.error("No se encuentra el token de autenticación.");
-      alert('No estás autenticado. Por favor, inicia sesión.');
       return;
     }
   
-    // Crear un objeto con los campos editables
     const datosActualizados = {
       nombre: this.usuario.nombre,
       apellido1: this.usuario.apellido1,
@@ -81,13 +79,11 @@ export class PerfilUsuarioComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log('Perfil actualizado con éxito:', data);
-          alert('Perfil actualizado con éxito.');
           this.usuario = data;
           this.mostrarFormulario = false;
         },
         (error) => {
           console.error('Error al actualizar el perfil', error);
-          alert('Hubo un error al actualizar el perfil. Intenta nuevamente.');
         }
       );
   }
@@ -102,13 +98,11 @@ export class PerfilUsuarioComponent implements OnInit {
         this.http.delete(`http://localhost:8080/api/borrar/${userId}`)
           .subscribe(
             () => {
-              alert('Cuenta eliminada con éxito.');
               this.loginService.logout();
               this.router.navigate(['/login']);
             },
             (error) => {
               console.error('Error al eliminar la cuenta del usuario', error);
-              alert('Hubo un error al eliminar tu cuenta. Intenta nuevamente.');
             }
           );
       }

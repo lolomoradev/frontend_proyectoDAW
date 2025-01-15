@@ -15,7 +15,6 @@ export class DemandanteService {
     return this.http.get<Demandante[]>(this.apiUrl);
   }
 
-  //Obtiene el iddemandante usando el id del usuario
   getIdDemandanteByUserId(userId: number): Observable<number> {
       const url = `${this.apiUrl}/actividadDemandante/usuarios/${userId}/demandante`;
       console.log('DemandanteService: Obteniendo ID del demandante desde:', url);
